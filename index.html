@@ -8,18 +8,13 @@
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 
 <style>
- *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-    font-family:'Segoe UI', sans-serif;
-    height:100vh;
-    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
     background:linear-gradient(180deg,#1f3c88,#0f1f4d);
     color:white;
+    overflow-x:hidden;
 }
 
 #tsparticles{
@@ -30,65 +25,83 @@ body{
 }
 
 .main{
-    height:100vh;
+    min-height:100vh;
     display:flex;
     flex-direction:column;
     justify-content:space-evenly;
     align-items:center;
-    padding:15px 30px;
+    padding:25px 15px;
     text-align:center;
 }
 
 h1{
-    font-size:3vw;
+    font-size:28px;
     color:#ffcc00;
     text-shadow:0 5px 15px rgba(0,0,0,0.5);
 }
 
-.mensaje-contador{
-    font-size:1.5vw;
-    margin-top:10px;
-    color:white;
+/* BARRA PROGRESO */
+.barra-contenedor{
+    width:90%;
+    height:20px;
+    background:rgba(255,255,255,0.2);
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:15px;
 }
 
+.barra-progreso{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#ffd000,#ffae00,#ffcc00);
+    border-radius:20px;
+    transition:width 1s ease;
+}
+
+.mensaje-contador{
+    font-size:18px;
+    margin-top:10px;
+    color:#ffcc00;
+    font-weight:bold;
+}
+
+/* CONTADOR */
 .contenedor{
     display:flex;
     justify-content:center;
     flex-wrap:wrap;
     gap:15px;
+    margin-top:10px;
 }
 
 .caja{
-    background:rgba(20,30,60,0.8);
+    background:rgba(20,30,60,0.85);
     backdrop-filter:blur(6px);
-    padding:15px 20px;
+    padding:15px;
     border-radius:15px;
-    width:110px;
+    width:80px;
     box-shadow:0 10px 25px rgba(0,0,0,0.5);
 }
 
 .numero{
-    font-size:2vw;
+    font-size:26px;
     font-weight:bold;
     color:#ffcc00;
 }
 
 .texto{
-    font-size:0.8vw;
+    font-size:12px;
 }
 
-.fecha{
-    font-size:1.2vw;
-    color:#ffcc00;
-}
-
+/* CARRUSEL */
 .carrusel{
     position:relative;
-    width:70%;
-    height:35vh;
+    width:95%;
+    height:40vh;
     overflow:hidden;
     border-radius:20px;
     box-shadow:0 20px 40px rgba(0,0,0,0.6);
+    margin-top:20px;
 }
 
 .slide{
@@ -109,48 +122,42 @@ h1{
     opacity:1;
 }
 
+/* MENSAJE FINAL */
 .mensaje-final{
-    margin-top:15px;
-    padding:15px 25px;
+    margin-top:20px;
+    padding:15px;
     border:2px solid #ffcc00;
     border-radius:20px;
-    background:rgba(20,30,60,0.6);
-    backdrop-filter: blur(6px);
-    animation: breathing 4s ease-in-out infinite;
+    background:rgba(20,30,60,0.7);
+    animation:breathing 4s ease-in-out infinite;
 }
 
 .mensaje-final h2{
-    font-size:1.8vw;
+    font-size:20px;
     color:#ffcc00;
 }
 
 .mensaje-final p{
-    margin-top:10px;
-    font-size:1.1vw;
-    color:#ffffff;
+    margin-top:8px;
+    font-size:14px;
+    line-height:1.4;
 }
 
-@keyframes breathing {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 10px rgba(255,204,0,0.3);
-        opacity: 0.85;
-    }
-    50% {
-        transform: scale(1.03);
-        box-shadow: 0 0 25px rgba(255,204,0,0.8);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 10px rgba(255,204,0,0.3);
-        opacity: 0.85;
-    }
+@keyframes breathing{
+    0%{transform:scale(1);box-shadow:0 0 10px rgba(255,204,0,0.3);}
+    50%{transform:scale(1.03);box-shadow:0 0 25px rgba(255,204,0,0.8);}
+    100%{transform:scale(1);box-shadow:0 0 10px rgba(255,204,0,0.3);}
 }
 
-footer{
-    font-size:0.8vw;
-    opacity:0.7;
+/* ---- AJUSTES PARA PANTALLAS GRANDES ---- */
+@media(min-width:768px){
+h1{font-size:40px;}
+.numero{font-size:32px;}
+.texto{font-size:14px;}
+.caja{width:110px;}
+.carrusel{height:35vh;}
+.mensaje-final h2{font-size:24px;}
+.mensaje-final p{font-size:16px;}
 }
 </style>
 </head>
@@ -161,131 +168,113 @@ footer{
 
 <div class="main">
 
-    <h1>📅 43° Aniversario Drogadictos Anónimos AC</h1>
+<h1>📅 43° Aniversario Drogadictos Anónimos AC</h1>
 
-    <div id="mensajeContador" class="mensaje-contador"></div>
+<div class="barra-contenedor">
+    <div class="barra-progreso" id="barraProgreso"></div>
+</div>
 
-    <div class="contenedor">
-        <div class="caja"><div class="numero" id="anios">0</div><div class="texto">AÑOS</div></div>
-        <div class="caja"><div class="numero" id="meses">0</div><div class="texto">MESES</div></div>
-        <div class="caja"><div class="numero" id="dias">0</div><div class="texto">DÍAS</div></div>
-        <div class="caja"><div class="numero" id="horas">0</div><div class="texto">HORAS</div></div>
-        <div class="caja"><div class="numero" id="minutos">0</div><div class="texto">MINUTOS</div></div>
-        <div class="caja"><div class="numero" id="segundos">0</div><div class="texto">SEGUNDOS</div></div>
-    </div>
+<div id="mensajeContador" class="mensaje-contador"></div>
 
-    <div class="fecha">
-        07 de Noviembre de 2026 • Mérida, Yucatán
-    </div>
+<div class="contenedor">
+    <div class="caja"><div class="numero" id="dias">0</div><div class="texto">DÍAS</div></div>
+    <div class="caja"><div class="numero" id="horas">0</div><div class="texto">HORAS</div></div>
+    <div class="caja"><div class="numero" id="minutos">0</div><div class="texto">MINUTOS</div></div>
+    <div class="caja"><div class="numero" id="segundos">0</div><div class="texto">SEGUNDOS</div></div>
+</div>
 
-    <div class="carrusel" id="carrusel"></div>
+<div class="carrusel" id="carrusel"></div>
 
-    <div class="mensaje-final">
-        <h2>🤝 ¡Te esperamos!</h2>
-        <p>
-            Únete a nosotros en la celebración de 43 años de logros, unidad y recuperación.<br>
-            Una comunidad que transforma vidas, unidos en el amor.
-        </p>
-    </div>
-
-    <footer>
-        43° Aniversario Drogadictos Anónimos A.C.
-    </footer>
+<div class="mensaje-final">
+    <h2>🤝 ¡Te esperamos!</h2>
+    <p>
+        Únete a nosotros en la celebración de 43 años de logros, unidad y recuperación.<br>
+        Una comunidad que transforma vidas, unidos en el amor.
+    </p>
+</div>
 
 </div>
 
 <script>
-
-// ================= CONTADOR =================
-const fechaEvento = new Date("2026-11-07T00:00:00").getTime();
+// CONTADOR
+const fechaEvento=new Date("2026-11-07T00:00:00").getTime();
+const fechaInicio=new Date("2025-01-01T00:00:00").getTime();
 
 setInterval(()=>{
-    const ahora = new Date().getTime();
-    let d = fechaEvento - ahora;
+const ahora=new Date().getTime();
+let diff=fechaEvento-ahora;
 
-    if(d<=0){
-        document.getElementById("mensajeContador").innerText="🎉 ¡Hoy es el gran día!";
-        return;
-    }
+if(diff<=0){
+document.getElementById("mensajeContador").innerText="🎉 ¡Hoy es el gran día!";
+document.getElementById("barraProgreso").style.width="100%";
+return;
+}
 
-    let anios=Math.floor(d/(1000*60*60*24*365));
-    d-=anios*(1000*60*60*24*365);
-    let meses=Math.floor(d/(1000*60*60*24*30));
-    d-=meses*(1000*60*60*24*30);
-    let dias=Math.floor(d/(1000*60*60*24));
-    d-=dias*(1000*60*60*24);
-    let horas=Math.floor(d/(1000*60*60));
-    d-=horas*(1000*60*60);
-    let minutos=Math.floor(d/(1000*60));
-    d-=minutos*(1000*60);
-    let segundos=Math.floor(d/1000);
+let dias=Math.floor(diff/(1000*60*60*24));
+let horas=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+let minutos=Math.floor((diff%(1000*60*60))/(1000*60));
+let segundos=Math.floor((diff%(1000*60))/1000);
 
-    document.getElementById("anios").innerText=anios;
-    document.getElementById("meses").innerText=meses;
-    document.getElementById("dias").innerText=dias;
-    document.getElementById("horas").innerText=horas;
-    document.getElementById("minutos").innerText=minutos;
-    document.getElementById("segundos").innerText=segundos;
+document.getElementById("dias").innerText=dias;
+document.getElementById("horas").innerText=horas;
+document.getElementById("minutos").innerText=minutos;
+document.getElementById("segundos").innerText=segundos;
 
-    let mensaje="";
-    if(anios>0) mensaje=`Faltan ${anios} año(s) para nuestro Evento Magno ¡Vívelo!`;
-    else if(meses>0) mensaje=`Faltan ${meses} mes(es) para nuestro Evento Magno ¡Prepárate!`;
-    else mensaje=`Faltan ${dias} días para nuestro Evento Magno ¡Vívelo!`;
+document.getElementById("mensajeContador").innerText=
+`Faltan ${dias} días para nuestro Evento Magno`;
 
-    document.getElementById("mensajeContador").innerText=mensaje;
+let totalPeriodo=fechaEvento-fechaInicio;
+let progreso=((ahora-fechaInicio)/totalPeriodo)*100;
+if(progreso<0)progreso=0;
+if(progreso>100)progreso=100;
+
+document.getElementById("barraProgreso").style.width=progreso+"%";
 
 },1000);
 
-// ================= CARRUSEL =================
+// CARRUSEL
 const imagenes=[
-"foto1.jpg",
-"foto2.jpg",
-"foto3.jpg",
-"foto4.jpg",
-"foto5.jpg",
-"foto6.jpg",
-"foto7.jpg",
+"IMG_20251225_112113.jpg",
+"IMG_20251225_112127.jpg",
+"IMG_20260102_210926.jpg"
 ];
 
 const carrusel=document.getElementById("carrusel");
 
 imagenes.forEach((nombre,index)=>{
-    const div=document.createElement("div");
-    div.classList.add("slide");
-    if(index===0)div.classList.add("activo");
+const div=document.createElement("div");
+div.classList.add("slide");
+if(index===0)div.classList.add("activo");
 
-    const img=document.createElement("img");
-    img.src="fotos/"+nombre;
+const img=document.createElement("img");
+img.src="./fotos/"+nombre;
 
-    div.appendChild(img);
-    carrusel.appendChild(div);
+div.appendChild(img);
+carrusel.appendChild(div);
 });
 
 setInterval(()=>{
-    let slides=document.querySelectorAll(".slide");
-    if(slides.length===0)return;
-    let actual=document.querySelector(".slide.activo");
-    let index=Array.from(slides).indexOf(actual);
-    actual.classList.remove("activo");
-    slides[(index+1)%slides.length].classList.add("activo");
+let slides=document.querySelectorAll(".slide");
+if(slides.length===0)return;
+let actual=document.querySelector(".slide.activo");
+let index=Array.from(slides).indexOf(actual);
+actual.classList.remove("activo");
+slides[(index+1)%slides.length].classList.add("activo");
 },4000);
 
-// ================= FUEGO =================
+// PARTICULAS
 tsParticles.load("tsparticles",{
-    fpsLimit:60,
-    particles:{
-        number:{value:220,density:{enable:true,area:900}},
-        color:{value:["#ff6a00","#ffae00","#ffd000","#ffffff"]},
-        shape:{type:"circle"},
-        opacity:{value:{min:0.3,max:0.8},animation:{enable:true,speed:1}},
-        size:{value:{min:1,max:5},animation:{enable:true,speed:2}},
-        move:{enable:true,speed:{min:0.5,max:2},direction:"top",outModes:{default:"out"}}
-    }
+fpsLimit:60,
+particles:{
+number:{value:160,density:{enable:true,area:900}},
+color:{value:["#ff6a00","#ffae00","#ffd000","#ffffff"]},
+shape:{type:"circle"},
+opacity:{value:{min:0.3,max:0.8},animation:{enable:true,speed:1}},
+size:{value:{min:1,max:4},animation:{enable:true,speed:2}},
+move:{enable:true,speed:{min:0.5,max:1.5},direction:"top",outModes:{default:"out"}}
+}
 });
 </script>
 
 </body>
-
 </html>
-
-
