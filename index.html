@@ -43,11 +43,11 @@ h1{
 
 .barra-contenedor{
     width:95%;
-    height:30px;
+    height:32px;
     background:rgba(255,255,255,0.2);
     border-radius:25px;
     overflow:hidden;
-    margin-bottom:25px;
+    margin-bottom:30px;
 }
 
 .barra-progreso{
@@ -63,34 +63,37 @@ h1{
     color:#1f1f1f;
     font-size:14px;
     padding:0 10px;
-    text-align:center;
 }
 
-/* ===== CONTADOR ===== */
+/* ===== CONTADOR GRANDE ===== */
 
 .contenedor{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
     gap:15px;
-    margin-bottom:25px;
+    margin-bottom:30px;
 }
 
 .caja{
-    background:rgba(20,30,60,0.85);
-    padding:15px;
-    border-radius:15px;
-    width:80px;
+    background:rgba(20,30,60,0.9);
+    padding:18px 15px;
+    border-radius:18px;
+    width:90px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.6);
+    backdrop-filter:blur(6px);
 }
 
 .numero{
     font-size:24px;
     font-weight:bold;
     color:#ffcc00;
+    text-shadow:0 4px 8px rgba(0,0,0,0.5);
 }
 
 .texto{
     font-size:12px;
+    margin-top:5px;
 }
 
 /* ===== CARRUSEL ===== */
@@ -102,6 +105,7 @@ h1{
     overflow:hidden;
     border-radius:20px;
     margin-bottom:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.6);
 }
 
 .slide{
@@ -148,10 +152,9 @@ h1{
     100%{transform:scale(1);}
 }
 
-/* AJUSTE PANTALLAS GRANDES */
 @media(min-width:768px){
 h1{font-size:40px;}
-.numero{font-size:32px;}
+.numero{font-size:30px;}
 .caja{width:110px;}
 .carrusel{height:35vh;}
 }
@@ -172,7 +175,10 @@ h1{font-size:40px;}
     </div>
 </div>
 
+<!-- CONTADOR COMPLETO -->
 <div class="contenedor">
+    <div class="caja"><div class="numero" id="anios">0</div><div class="texto">AÑOS</div></div>
+    <div class="caja"><div class="numero" id="meses">0</div><div class="texto">MESES</div></div>
     <div class="caja"><div class="numero" id="dias">0</div><div class="texto">DÍAS</div></div>
     <div class="caja"><div class="numero" id="horas">0</div><div class="texto">HORAS</div></div>
     <div class="caja"><div class="numero" id="minutos">0</div><div class="texto">MINUTOS</div></div>
@@ -192,45 +198,52 @@ h1{font-size:40px;}
 
 <script>
 
-// ===== CONFIGURACIÓN =====
 const totalDias = 365;
-const fechaEvento = new Date("2026-11-07T00:00:00").getTime();
+const fechaEvento = new Date("2026-11-07T00:00:00");
 
-// ===== CONTADOR + BARRA =====
 function actualizar(){
 
-    const ahora = new Date().getTime();
-    const diff = fechaEvento - ahora;
+    const ahora = new Date();
 
-    if(diff <= 0){
+    if(ahora >= fechaEvento){
         document.getElementById("barraProgreso").style.width = "100%";
         document.getElementById("textoBarra").innerText = "🎉 ¡Hoy es el Evento Magno!";
         return;
     }
 
-    const dias = Math.floor(diff/(1000*60*60*24));
-    const horas = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    const minutos = Math.floor((diff%(1000*60*60))/(1000*60));
-    const segundos = Math.floor((diff%(1000*60))/1000);
+    let diff = fechaEvento - ahora;
 
-    document.getElementById("dias").innerText=dias;
-    document.getElementById("horas").innerText=horas;
-    document.getElementById("minutos").innerText=minutos;
-    document.getElementById("segundos").innerText=segundos;
+    let segundos = Math.floor(diff / 1000) % 60;
+    let minutos = Math.floor(diff / (1000*60)) % 60;
+    let horas = Math.floor(diff / (1000*60*60)) % 24;
 
-    let progreso = ((totalDias - dias) / totalDias) * 100;
+    let totalDiasRestantes = Math.floor(diff / (1000*60*60*24));
+
+    let anios = Math.floor(totalDiasRestantes / 365);
+    let meses = Math.floor((totalDiasRestantes % 365) / 30);
+    let dias = (totalDiasRestantes % 365) % 30;
+
+    document.getElementById("anios").innerText = anios;
+    document.getElementById("meses").innerText = meses;
+    document.getElementById("dias").innerText = dias;
+    document.getElementById("horas").innerText = horas;
+    document.getElementById("minutos").innerText = minutos;
+    document.getElementById("segundos").innerText = segundos;
+
+    // BARRA PROPORCIONAL A 365 DÍAS
+    let progreso = ((totalDias - totalDiasRestantes) / totalDias) * 100;
     if(progreso < 0) progreso = 0;
     if(progreso > 100) progreso = 100;
 
     document.getElementById("barraProgreso").style.width = progreso + "%";
     document.getElementById("textoBarra").innerText =
-        `Faltan ${dias} días para nuestro Evento Magno`;
+        `Faltan ${totalDiasRestantes} días para nuestro Evento Magno`;
 }
 
 actualizar();
 setInterval(actualizar,1000);
 
-// ===== CARRUSEL AUTOMÁTICO foto1 → foto8 =====
+// CARRUSEL foto1 a foto8
 const imagenes=[];
 for(let i=1;i<=8;i++){
     imagenes.push(`foto${i}.jpg`);
@@ -258,7 +271,7 @@ actual.classList.remove("activo");
 slides[(index+1)%slides.length].classList.add("activo");
 },4000);
 
-// ===== PARTICULAS =====
+// PARTICULAS
 tsParticles.load("tsparticles",{
 fpsLimit:60,
 particles:{
