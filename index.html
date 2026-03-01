@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>43° Aniversario Drogadictos Anónimos AC</title>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI', sans-serif;
+    height:100vh;
+    overflow:hidden;
+    background:linear-gradient(180deg,#1f3c88,#0f1f4d);
+    color:white;
+}
+
+#tsparticles{
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+.main{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-evenly;
+    align-items:center;
+    padding:15px 30px;
+    text-align:center;
+}
+
+h1{
+    font-size:3vw;
+    color:#ffcc00;
+    text-shadow:0 5px 15px rgba(0,0,0,0.5);
+}
+
+.mensaje-contador{
+    font-size:1.5vw;
+    margin-top:10px;
+    color:white;
+}
+
+.contenedor{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.caja{
+    background:rgba(20,30,60,0.8);
+    backdrop-filter:blur(6px);
+    padding:15px 20px;
+    border-radius:15px;
+    width:110px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+
+.numero{
+    font-size:2vw;
+    font-weight:bold;
+    color:#ffcc00;
+}
+
+.texto{
+    font-size:0.8vw;
+}
+
+.fecha{
+    font-size:1.2vw;
+    color:#ffcc00;
+}
+
+.carrusel{
+    position:relative;
+    width:70%;
+    height:35vh;
+    overflow:hidden;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    opacity:0;
+    transition:opacity 1.5s ease-in-out;
+}
+
+.slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.activo{
+    opacity:1;
+}
+
+.mensaje-final{
+    margin-top:15px;
+    padding:15px 25px;
+    border:2px solid #ffcc00;
+    border-radius:20px;
+    background:rgba(20,30,60,0.6);
+    backdrop-filter: blur(6px);
+    animation: breathing 4s ease-in-out infinite;
+}
+
+.mensaje-final h2{
+    font-size:1.8vw;
+    color:#ffcc00;
+}
+
+.mensaje-final p{
+    margin-top:10px;
+    font-size:1.1vw;
+    color:#ffffff;
+}
+
+@keyframes breathing {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(255,204,0,0.3);
+        opacity: 0.85;
+    }
+    50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 25px rgba(255,204,0,0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(255,204,0,0.3);
+        opacity: 0.85;
+    }
+}
+
+footer{
+    font-size:0.8vw;
+    opacity:0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div id="tsparticles"></div>
+
+<div class="main">
+
+    <h1>📅 43° Aniversario Drogadictos Anónimos AC</h1>
+
+    <div id="mensajeContador" class="mensaje-contador"></div>
+
+    <div class="contenedor">
+        <div class="caja"><div class="numero" id="anios">0</div><div class="texto">AÑOS</div></div>
+        <div class="caja"><div class="numero" id="meses">0</div><div class="texto">MESES</div></div>
+        <div class="caja"><div class="numero" id="dias">0</div><div class="texto">DÍAS</div></div>
+        <div class="caja"><div class="numero" id="horas">0</div><div class="texto">HORAS</div></div>
+        <div class="caja"><div class="numero" id="minutos">0</div><div class="texto">MINUTOS</div></div>
+        <div class="caja"><div class="numero" id="segundos">0</div><div class="texto">SEGUNDOS</div></div>
+    </div>
+
+    <div class="fecha">
+        07 de Noviembre de 2026 • Mérida, Yucatán
+    </div>
+
+    <div class="carrusel" id="carrusel"></div>
+
+    <div class="mensaje-final">
+        <h2>🤝 ¡Te esperamos!</h2>
+        <p>
+            Únete a nosotros en la celebración de 43 años de logros, unidad y recuperación.<br>
+            Una comunidad que transforma vidas, unidos en el amor.
+        </p>
+    </div>
+
+    <footer>
+        43° Aniversario Drogadictos Anónimos A.C.
+    </footer>
+
+</div>
+
+<script>
+
+// ================= CONTADOR =================
+const fechaEvento = new Date("2026-11-07T00:00:00").getTime();
+
+setInterval(()=>{
+    const ahora = new Date().getTime();
+    let d = fechaEvento - ahora;
+
+    if(d<=0){
+        document.getElementById("mensajeContador").innerText="🎉 ¡Hoy es el gran día!";
+        return;
+    }
+
+    let anios=Math.floor(d/(1000*60*60*24*365));
+    d-=anios*(1000*60*60*24*365);
+    let meses=Math.floor(d/(1000*60*60*24*30));
+    d-=meses*(1000*60*60*24*30);
+    let dias=Math.floor(d/(1000*60*60*24));
+    d-=dias*(1000*60*60*24);
+    let horas=Math.floor(d/(1000*60*60));
+    d-=horas*(1000*60*60);
+    let minutos=Math.floor(d/(1000*60));
+    d-=minutos*(1000*60);
+    let segundos=Math.floor(d/1000);
+
+    document.getElementById("anios").innerText=anios;
+    document.getElementById("meses").innerText=meses;
+    document.getElementById("dias").innerText=dias;
+    document.getElementById("horas").innerText=horas;
+    document.getElementById("minutos").innerText=minutos;
+    document.getElementById("segundos").innerText=segundos;
+
+    let mensaje="";
+    if(anios>0) mensaje=`Faltan ${anios} año(s) para nuestro Evento Magno ¡Vívelo!`;
+    else if(meses>0) mensaje=`Faltan ${meses} mes(es) para nuestro Evento Magno ¡Prepárate!`;
+    else mensaje=`Faltan ${dias} días para nuestro Evento Magno ¡Vívelo!`;
+
+    document.getElementById("mensajeContador").innerText=mensaje;
+
+},1000);
+
+// ================= CARRUSEL =================
+const imagenes=[
+    "foto1.jpg",
+    "foto2.jpg",
+    "foto3.webp"
+];
+
+const carrusel=document.getElementById("carrusel");
+
+imagenes.forEach((nombre,index)=>{
+    const div=document.createElement("div");
+    div.classList.add("slide");
+    if(index===0)div.classList.add("activo");
+
+    const img=document.createElement("img");
+    img.src="fotos/"+nombre;
+
+    div.appendChild(img);
+    carrusel.appendChild(div);
+});
+
+setInterval(()=>{
+    let slides=document.querySelectorAll(".slide");
+    if(slides.length===0)return;
+    let actual=document.querySelector(".slide.activo");
+    let index=Array.from(slides).indexOf(actual);
+    actual.classList.remove("activo");
+    slides[(index+1)%slides.length].classList.add("activo");
+},4000);
+
+// ================= FUEGO =================
+tsParticles.load("tsparticles",{
+    fpsLimit:60,
+    particles:{
+        number:{value:220,density:{enable:true,area:900}},
+        color:{value:["#ff6a00","#ffae00","#ffd000","#ffffff"]},
+        shape:{type:"circle"},
+        opacity:{value:{min:0.3,max:0.8},animation:{enable:true,speed:1}},
+        size:{value:{min:1,max:5},animation:{enable:true,speed:2}},
+        move:{enable:true,speed:{min:0.5,max:2},direction:"top",outModes:{default:"out"}}
+    }
+});
+</script>
+
+</body>
+</html>
