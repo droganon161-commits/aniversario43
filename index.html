@@ -28,63 +28,63 @@ body{
     min-height:100vh;
     display:flex;
     flex-direction:column;
-    justify-content:space-evenly;
     align-items:center;
     padding:25px 15px;
     text-align:center;
 }
 
 h1{
-    font-size:28px;
+    font-size:26px;
     color:#ffcc00;
-    text-shadow:0 5px 15px rgba(0,0,0,0.5);
+    margin-bottom:20px;
 }
 
-/* BARRA PROGRESO */
+/* ===== BARRA ===== */
+
 .barra-contenedor{
-    width:90%;
-    height:20px;
+    width:95%;
+    height:30px;
     background:rgba(255,255,255,0.2);
-    border-radius:20px;
+    border-radius:25px;
     overflow:hidden;
-    margin-top:15px;
+    margin-bottom:25px;
 }
 
 .barra-progreso{
     height:100%;
     width:0%;
     background:linear-gradient(90deg,#ffd000,#ffae00,#ffcc00);
-    border-radius:20px;
+    border-radius:25px;
     transition:width 1s ease;
-}
-
-.mensaje-contador{
-    font-size:18px;
-    margin-top:10px;
-    color:#ffcc00;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-weight:bold;
+    color:#1f1f1f;
+    font-size:14px;
+    padding:0 10px;
+    text-align:center;
 }
 
-/* CONTADOR */
+/* ===== CONTADOR ===== */
+
 .contenedor{
     display:flex;
-    justify-content:center;
     flex-wrap:wrap;
+    justify-content:center;
     gap:15px;
-    margin-top:10px;
+    margin-bottom:25px;
 }
 
 .caja{
     background:rgba(20,30,60,0.85);
-    backdrop-filter:blur(6px);
     padding:15px;
     border-radius:15px;
     width:80px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.5);
 }
 
 .numero{
-    font-size:26px;
+    font-size:24px;
     font-weight:bold;
     color:#ffcc00;
 }
@@ -93,15 +93,15 @@ h1{
     font-size:12px;
 }
 
-/* CARRUSEL */
+/* ===== CARRUSEL ===== */
+
 .carrusel{
     position:relative;
     width:95%;
     height:40vh;
     overflow:hidden;
     border-radius:20px;
-    box-shadow:0 20px 40px rgba(0,0,0,0.6);
-    margin-top:20px;
+    margin-bottom:25px;
 }
 
 .slide{
@@ -122,9 +122,9 @@ h1{
     opacity:1;
 }
 
-/* MENSAJE FINAL */
+/* ===== MENSAJE FINAL ===== */
+
 .mensaje-final{
-    margin-top:20px;
     padding:15px;
     border:2px solid #ffcc00;
     border-radius:20px;
@@ -140,24 +140,20 @@ h1{
 .mensaje-final p{
     margin-top:8px;
     font-size:14px;
-    line-height:1.4;
 }
 
 @keyframes breathing{
-    0%{transform:scale(1);box-shadow:0 0 10px rgba(255,204,0,0.3);}
-    50%{transform:scale(1.03);box-shadow:0 0 25px rgba(255,204,0,0.8);}
-    100%{transform:scale(1);box-shadow:0 0 10px rgba(255,204,0,0.3);}
+    0%{transform:scale(1);}
+    50%{transform:scale(1.03);}
+    100%{transform:scale(1);}
 }
 
-/* ---- AJUSTES PARA PANTALLAS GRANDES ---- */
+/* AJUSTE PANTALLAS GRANDES */
 @media(min-width:768px){
 h1{font-size:40px;}
 .numero{font-size:32px;}
-.texto{font-size:14px;}
 .caja{width:110px;}
 .carrusel{height:35vh;}
-.mensaje-final h2{font-size:24px;}
-.mensaje-final p{font-size:16px;}
 }
 </style>
 </head>
@@ -171,10 +167,10 @@ h1{font-size:40px;}
 <h1>📅 43° Aniversario Drogadictos Anónimos AC</h1>
 
 <div class="barra-contenedor">
-    <div class="barra-progreso" id="barraProgreso"></div>
+    <div class="barra-progreso" id="barraProgreso">
+        <span id="textoBarra"></span>
+    </div>
 </div>
-
-<div id="mensajeContador" class="mensaje-contador"></div>
 
 <div class="contenedor">
     <div class="caja"><div class="numero" id="dias">0</div><div class="texto">DÍAS</div></div>
@@ -188,56 +184,57 @@ h1{font-size:40px;}
 <div class="mensaje-final">
     <h2>🤝 ¡Te esperamos!</h2>
     <p>
-        Únete a nosotros en la celebración de 43 años de logros, unidad y recuperación.<br>
-        Una comunidad que transforma vidas, unidos en el amor.
+        Únete a nosotros en la celebración de 43 años de logros, unidad y recuperación.
     </p>
 </div>
 
 </div>
 
 <script>
-// CONTADOR
-const fechaEvento=new Date("2026-11-07T00:00:00").getTime();
-const fechaInicio=new Date("2025-01-01T00:00:00").getTime();
 
-setInterval(()=>{
-const ahora=new Date().getTime();
-let diff=fechaEvento-ahora;
+// ===== CONFIGURACIÓN =====
+const totalDias = 365;
+const fechaEvento = new Date("2026-11-07T00:00:00").getTime();
 
-if(diff<=0){
-document.getElementById("mensajeContador").innerText="🎉 ¡Hoy es el gran día!";
-document.getElementById("barraProgreso").style.width="100%";
-return;
+// ===== CONTADOR + BARRA =====
+function actualizar(){
+
+    const ahora = new Date().getTime();
+    const diff = fechaEvento - ahora;
+
+    if(diff <= 0){
+        document.getElementById("barraProgreso").style.width = "100%";
+        document.getElementById("textoBarra").innerText = "🎉 ¡Hoy es el Evento Magno!";
+        return;
+    }
+
+    const dias = Math.floor(diff/(1000*60*60*24));
+    const horas = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const minutos = Math.floor((diff%(1000*60*60))/(1000*60));
+    const segundos = Math.floor((diff%(1000*60))/1000);
+
+    document.getElementById("dias").innerText=dias;
+    document.getElementById("horas").innerText=horas;
+    document.getElementById("minutos").innerText=minutos;
+    document.getElementById("segundos").innerText=segundos;
+
+    let progreso = ((totalDias - dias) / totalDias) * 100;
+    if(progreso < 0) progreso = 0;
+    if(progreso > 100) progreso = 100;
+
+    document.getElementById("barraProgreso").style.width = progreso + "%";
+    document.getElementById("textoBarra").innerText =
+        `Faltan ${dias} días para nuestro Evento Magno`;
 }
 
-let dias=Math.floor(diff/(1000*60*60*24));
-let horas=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-let minutos=Math.floor((diff%(1000*60*60))/(1000*60));
-let segundos=Math.floor((diff%(1000*60))/1000);
+actualizar();
+setInterval(actualizar,1000);
 
-document.getElementById("dias").innerText=dias;
-document.getElementById("horas").innerText=horas;
-document.getElementById("minutos").innerText=minutos;
-document.getElementById("segundos").innerText=segundos;
-
-document.getElementById("mensajeContador").innerText=
-`Faltan ${dias} días para nuestro Evento Magno`;
-
-let totalPeriodo=fechaEvento-fechaInicio;
-let progreso=((ahora-fechaInicio)/totalPeriodo)*100;
-if(progreso<0)progreso=0;
-if(progreso>100)progreso=100;
-
-document.getElementById("barraProgreso").style.width=progreso+"%";
-
-},1000);
-
-// CARRUSEL
-const imagenes=[
-"IMG_20251225_112113.jpg",
-"IMG_20251225_112127.jpg",
-"IMG_20260102_210926.jpg"
-];
+// ===== CARRUSEL AUTOMÁTICO foto1 → foto8 =====
+const imagenes=[];
+for(let i=1;i<=8;i++){
+    imagenes.push(`foto${i}.jpg`);
+}
 
 const carrusel=document.getElementById("carrusel");
 
@@ -247,7 +244,7 @@ div.classList.add("slide");
 if(index===0)div.classList.add("activo");
 
 const img=document.createElement("img");
-img.src="./fotos/"+nombre;
+img.src="fotos/"+nombre;
 
 div.appendChild(img);
 carrusel.appendChild(div);
@@ -255,25 +252,25 @@ carrusel.appendChild(div);
 
 setInterval(()=>{
 let slides=document.querySelectorAll(".slide");
-if(slides.length===0)return;
 let actual=document.querySelector(".slide.activo");
 let index=Array.from(slides).indexOf(actual);
 actual.classList.remove("activo");
 slides[(index+1)%slides.length].classList.add("activo");
 },4000);
 
-// PARTICULAS
+// ===== PARTICULAS =====
 tsParticles.load("tsparticles",{
 fpsLimit:60,
 particles:{
-number:{value:160,density:{enable:true,area:900}},
+number:{value:150},
 color:{value:["#ff6a00","#ffae00","#ffd000","#ffffff"]},
 shape:{type:"circle"},
-opacity:{value:{min:0.3,max:0.8},animation:{enable:true,speed:1}},
-size:{value:{min:1,max:4},animation:{enable:true,speed:2}},
-move:{enable:true,speed:{min:0.5,max:1.5},direction:"top",outModes:{default:"out"}}
+opacity:{value:{min:0.3,max:0.8}},
+size:{value:{min:1,max:4}},
+move:{enable:true,speed:1,direction:"top",outModes:{default:"out"}}
 }
 });
+
 </script>
 
 </body>
