@@ -36,49 +36,25 @@ body{
 h1{
     font-size:26px;
     color:#ffcc00;
-    margin-bottom:15px;
+    margin-bottom:20px;
 }
 
-/* ===== UBICACIÓN ===== */
+/* ===== INFO SUPERIOR ===== */
 
-.ubicacion{
-    font-size:18px;
-    font-weight:bold;
-    margin-bottom:5px;
+.info-top{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-bottom:20px;
 }
 
-/* ===== HORA ===== */
-
-.hora{
-    font-size:16px;
-    margin-bottom:15px;
-}
-
-/* ===== CLIMA GRANDE ===== */
-
-.clima-grande{
+.info-box{
     background:rgba(20,30,60,0.9);
-    padding:20px;
-    border-radius:20px;
-    box-shadow:0 15px 35px rgba(0,0,0,0.6);
-    margin-bottom:25px;
-    width:95%;
-    max-width:400px;
-}
-
-.clima-icono{
-    font-size:55px;
-}
-
-.clima-temp{
-    font-size:40px;
-    font-weight:bold;
-    color:#ffd000;
-}
-
-.clima-desc{
-    font-size:16px;
-    margin-top:5px;
+    padding:10px 18px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.6);
+    font-size:14px;
 }
 
 /* ===== BARRA ===== */
@@ -103,7 +79,9 @@ h1{
     justify-content:center;
     font-weight:bold;
     color:#1f1f1f;
+    padding:0 8px;
     font-size:12px;
+    white-space:nowrap;
 }
 
 /* ===== CONTADOR ===== */
@@ -122,13 +100,14 @@ h1{
     border-radius:18px;
     width:90px;
     box-shadow:0 15px 35px rgba(0,0,0,0.6);
+    backdrop-filter:blur(6px);
 }
 
 .numero{
     font-size:24px;
     font-weight:bold;
     color:#ffcc00;
-    transition:transform .3s ease, opacity .3s ease;
+    transition:transform 0.3s ease, opacity 0.3s ease;
 }
 
 .numero.animar{
@@ -138,6 +117,42 @@ h1{
 
 .texto{
     font-size:12px;
+    margin-top:5px;
+}
+
+/* ===== CARRUSEL ===== */
+
+.carrusel{
+    position:relative;
+    width:95%;
+    height:40vh;
+    overflow:hidden;
+    border-radius:20px;
+    margin-bottom:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    opacity:0;
+    transition:opacity 1.5s ease-in-out;
+}
+
+.slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.activo{opacity:1;}
+
+.mensaje-final{
+    padding:15px;
+    border:2px solid #ffcc00;
+    border-radius:20px;
+    background:rgba(20,30,60,0.7);
 }
 
 @media(min-width:768px){
@@ -156,13 +171,10 @@ h1{font-size:40px;}
 
 <h1>📅 43° Aniversario Drogadictos Anónimos AC</h1>
 
-<div class="ubicacion" id="ubicacion">📍 Detectando ubicación...</div>
-<div class="hora" id="horaActual">🕒 --:--:--</div>
-
-<div class="clima-grande">
-    <div class="clima-icono" id="iconoClima">⛅</div>
-    <div class="clima-temp" id="tempClima">--°C</div>
-    <div class="clima-desc" id="descClima">Cargando clima...</div>
+<!-- HORA Y CLIMA -->
+<div class="info-top">
+    <div class="info-box" id="horaActual">🕒 --:--:--</div>
+    <div class="info-box" id="climaActual">🌤 Cargando clima...</div>
 </div>
 
 <div class="barra-contenedor">
@@ -180,96 +192,117 @@ h1{font-size:40px;}
     <div class="caja"><div class="numero" id="segundos">0</div><div class="texto">SEGUNDOS</div></div>
 </div>
 
+<div class="carrusel" id="carrusel"></div>
+
 </div>
 
 <script>
 
-const fechaEvento=new Date("2026-11-07T00:00:00");
-const totalDias=365;
+const fechaEvento = new Date("2026-11-07T00:00:00");
+const totalDias = 365;
 
-/* ANIMACIÓN CONTADOR */
-function animar(id,valor){
-let el=document.getElementById(id);
-if(el.innerText!=valor){
-el.classList.add("animar");
-setTimeout(()=>{el.innerText=valor;el.classList.remove("animar");},150);
-}
+function animarCambio(id, nuevoValor){
+    const el = document.getElementById(id);
+    if(el.innerText != nuevoValor){
+        el.classList.add("animar");
+        setTimeout(()=>{
+            el.innerText = nuevoValor;
+            el.classList.remove("animar");
+        },150);
+    }
 }
 
 function actualizar(){
-let ahora=new Date();
-let diff=fechaEvento-ahora;
-if(diff<=0){return;}
+    const ahora = new Date();
+    let diff = fechaEvento - ahora;
 
-let seg=Math.floor(diff/1000)%60;
-let min=Math.floor(diff/(1000*60))%60;
-let hrs=Math.floor(diff/(1000*60*60))%24;
-let totalDiasRestantes=Math.floor(diff/(1000*60*60*24));
-let anios=Math.floor(totalDiasRestantes/365);
-let meses=Math.floor((totalDiasRestantes%365)/30);
-let dias=(totalDiasRestantes%365)%30;
+    if(diff <= 0){
+        document.getElementById("textoBarra").innerText="🎉 ¡Hoy es el Evento!";
+        return;
+    }
 
-animar("anios",anios);
-animar("meses",meses);
-animar("dias",dias);
-animar("horas",hrs);
-animar("minutos",min);
-animar("segundos",seg);
+    let segundos = Math.floor(diff/1000)%60;
+    let minutos = Math.floor(diff/(1000*60))%60;
+    let horas = Math.floor(diff/(1000*60*60))%24;
+    let totalDiasRestantes = Math.floor(diff/(1000*60*60*24));
 
-let progreso=((totalDias-totalDiasRestantes)/totalDias)*100;
-if(progreso<0)progreso=0;
-if(progreso>100)progreso=100;
+    let anios = Math.floor(totalDiasRestantes/365);
+    let meses = Math.floor((totalDiasRestantes%365)/30);
+    let dias = (totalDiasRestantes%365)%30;
 
-document.getElementById("barraProgreso").style.width=progreso+"%";
-document.getElementById("textoBarra").innerText=`Faltan ${totalDiasRestantes} días`;
+    animarCambio("anios",anios);
+    animarCambio("meses",meses);
+    animarCambio("dias",dias);
+    animarCambio("horas",horas);
+    animarCambio("minutos",minutos);
+    animarCambio("segundos",segundos);
+
+    let progreso=((totalDias-totalDiasRestantes)/totalDias)*100;
+    if(progreso<0)progreso=0;
+    if(progreso>100)progreso=100;
+
+    document.getElementById("barraProgreso").style.width=progreso+"%";
+    document.getElementById("textoBarra").innerText=`Faltan ${totalDiasRestantes} días`;
 }
+
 setInterval(actualizar,1000);
 actualizar();
 
-/* HORA */
+/* HORA ACTUAL */
 setInterval(()=>{
-document.getElementById("horaActual").innerText=
-"🕒 "+new Date().toLocaleTimeString();
+    const ahora=new Date();
+    document.getElementById("horaActual").innerText=
+        "🕒 "+ahora.toLocaleTimeString();
 },1000);
 
-/* CLIMA + UBICACIÓN */
+/* CLIMA */
 if(navigator.geolocation){
-navigator.geolocation.getCurrentPosition(async pos=>{
+navigator.geolocation.getCurrentPosition(pos=>{
 let lat=pos.coords.latitude;
 let lon=pos.coords.longitude;
 
-/* CIUDAD */
-let geo=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
-let geoData=await geo.json();
-let ciudad=geoData.address.city||geoData.address.town||geoData.address.village||"Tu ciudad";
-let pais=geoData.address.country;
-document.getElementById("ubicacion").innerText=`📍 Estamos en ${ciudad}, ${pais}`;
-
-/* CLIMA */
-let clima=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-let data=await clima.json();
+fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+.then(res=>res.json())
+.then(data=>{
 let temp=data.current_weather.temperature;
-let codigo=data.current_weather.weathercode;
-
-let icono="⛅";
-let descripcion="Clima agradable";
-
-if(codigo==0){icono="☀️";descripcion="Cielo despejado";}
-else if(codigo<3){icono="🌤️";descripcion="Parcialmente nublado";}
-else if(codigo<60){icono="☁️";descripcion="Nublado";}
-else if(codigo<70){icono="🌧️";descripcion="Lluvia ligera";}
-else if(codigo<80){icono="🌧️";descripcion="Lluvia moderada";}
-else if(codigo<90){icono="🌩️";descripcion="Tormenta";}
-else{icono="❄️";descripcion="Nieve";}
-
-document.getElementById("iconoClima").innerText=icono;
-document.getElementById("tempClima").innerText=temp+"°C";
-document.getElementById("descClima").innerText=descripcion;
-
+let viento=data.current_weather.windspeed;
+document.getElementById("climaActual").innerText=
+`🌡 ${temp}°C | 💨 ${viento} km/h`;
+});
 });
 }
 
-tsParticles.load("tsparticles",{particles:{number:{value:120},move:{enable:true,speed:1,direction:"top"}}});
+/* CARRUSEL */
+const imagenes=[];
+for(let i=1;i<=8;i++){imagenes.push(`foto${i}.jpg`);}
+const carrusel=document.getElementById("carrusel");
+
+imagenes.forEach((nombre,index)=>{
+let div=document.createElement("div");
+div.classList.add("slide");
+if(index===0)div.classList.add("activo");
+let img=document.createElement("img");
+img.src="fotos/"+nombre;
+div.appendChild(img);
+carrusel.appendChild(div);
+});
+
+setInterval(()=>{
+let slides=document.querySelectorAll(".slide");
+let actual=document.querySelector(".slide.activo");
+let index=Array.from(slides).indexOf(actual);
+actual.classList.remove("activo");
+slides[(index+1)%slides.length].classList.add("activo");
+},4000);
+
+/* PARTICULAS */
+tsParticles.load("tsparticles",{
+particles:{
+number:{value:120},
+color:{value:["#ff6a00","#ffd000","#ffffff"]},
+move:{enable:true,speed:1,direction:"top"}
+}
+});
 
 </script>
 
