@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,13 +11,20 @@
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
-font-family:'Segoe UI',sans-serif;
+
+font-family:Segoe UI;
 background:linear-gradient(180deg,#1f3c88,#0f1f4d);
 color:white;
 overflow-x:hidden;
+text-align:center;
+
 }
 
 #tsparticles{
@@ -27,125 +35,129 @@ z-index:-1;
 }
 
 .main{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-padding:25px 15px;
-text-align:center;
+
+padding:20px;
+
 }
 
 h1{
-font-size:28px;
-color:#ffcc00;
+
+color:#ffd000;
 margin-bottom:10px;
+
 }
 
 .info{
+
 margin-bottom:20px;
-font-size:16px;
+font-size:18px;
+
 }
 
-.clima{
-font-size:18px;
-font-weight:bold;
-margin-top:5px;
+#clima{
+
+font-size:24px;
 color:#ffd000;
-}
-
-.hora{
-font-size:16px;
 margin-top:5px;
+
 }
 
-.saludo{
-font-size:18px;
+#hora{
+
+font-size:20px;
+
+}
+
+#saludo{
+
+font-size:22px;
 margin-top:5px;
-color:#ffffff;
+
 }
 
-/* BARRA */
-
-.barra-contenedor{
-width:95%;
-height:32px;
-background:rgba(255,255,255,0.2);
-border-radius:25px;
-overflow:hidden;
-margin-bottom:30px;
-}
-
-.barra-progreso{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#ffd000,#ffae00,#ffcc00);
-border-radius:25px;
-transition:width 1s ease;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:bold;
-color:#1f1f1f;
-font-size:12px;
-}
-
-/* CONTADOR */
+/* contador */
 
 .contenedor{
+
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
 gap:15px;
-margin-bottom:30px;
+margin-top:20px;
+
 }
 
 .caja{
+
 background:rgba(20,30,60,0.9);
-padding:18px 15px;
+padding:18px;
 border-radius:18px;
-width:90px;
+width:100px;
 box-shadow:0 15px 35px rgba(0,0,0,0.6);
+
 }
 
 .numero{
-font-size:24px;
+
+font-size:28px;
+color:#ffd000;
 font-weight:bold;
-color:#ffcc00;
+animation:flip 1s;
+
 }
 
 .texto{
+
 font-size:12px;
-margin-top:5px;
+
 }
 
-/* CARRUSEL */
+@keyframes flip{
+
+0%{transform:rotateX(90deg)}
+100%{transform:rotateX(0)}
+
+}
+
+/* carrusel */
 
 .carrusel{
+
 position:relative;
 width:95%;
 height:40vh;
 overflow:hidden;
+margin:25px auto;
 border-radius:20px;
-margin-bottom:25px;
+
 }
 
 .slide{
+
 position:absolute;
 width:100%;
 height:100%;
 opacity:0;
-transition:opacity 1.5s ease-in-out;
+transition:opacity 1.5s;
+
 }
 
 .slide img{
+
 width:100%;
 height:100%;
 object-fit:cover;
+
 }
 
-.activo{opacity:1;}
+.activo{
+
+opacity:1;
+
+}
 
 </style>
+
 </head>
 
 <body>
@@ -154,33 +166,30 @@ object-fit:cover;
 
 <div class="main">
 
-<h1>📅 43° Aniversario Drogadictos Anónimos AC</h1>
+<h1>🎉 43° Aniversario Drogadictos Anónimos AC</h1>
 
 <div class="info">
 
-<div>📍 Santa Cruz Palomeque, Mérida, Yucatán</div>
+📍 Santa Cruz Palomeque, Mérida, Yucatán
 
-<div class="clima" id="clima">Cargando clima...</div>
+<div id="clima">Cargando clima...</div>
 
-<div class="hora" id="hora"></div>
+<div id="hora"></div>
 
-<div class="saludo" id="saludo"></div>
+<div id="saludo"></div>
 
-</div>
-
-<div class="barra-contenedor">
-<div class="barra-progreso" id="barraProgreso">
-<span id="textoBarra"></span>
-</div>
 </div>
 
 <div class="contenedor">
-<div class="caja"><div class="numero" id="anios">0</div><div class="texto">AÑOS</div></div>
-<div class="caja"><div class="numero" id="meses">0</div><div class="texto">MESES</div></div>
-<div class="caja"><div class="numero" id="dias">0</div><div class="texto">DÍAS</div></div>
-<div class="caja"><div class="numero" id="horas">0</div><div class="texto">HORAS</div></div>
-<div class="caja"><div class="numero" id="minutos">0</div><div class="texto">MINUTOS</div></div>
-<div class="caja"><div class="numero" id="segundos">0</div><div class="texto">SEGUNDOS</div></div>
+
+<div class="caja"><div id="dias" class="numero"></div><div class="texto">DÍAS</div></div>
+
+<div class="caja"><div id="horas" class="numero"></div><div class="texto">HORAS</div></div>
+
+<div class="caja"><div id="minutos" class="numero"></div><div class="texto">MINUTOS</div></div>
+
+<div class="caja"><div id="segundos" class="numero"></div><div class="texto">SEGUNDOS</div></div>
+
 </div>
 
 <div class="carrusel" id="carrusel"></div>
@@ -189,9 +198,9 @@ object-fit:cover;
 
 <script>
 
-/* RELOJ Y SALUDO */
+/* RELOJ */
 
-function actualizarHora(){
+function reloj(){
 
 const ahora=new Date();
 
@@ -200,13 +209,11 @@ let m=ahora.getMinutes();
 let s=ahora.getSeconds();
 
 document.getElementById("hora").innerText=
-"🕒 "+h.toString().padStart(2,"0")+":"+
-m.toString().padStart(2,"0")+":"+
-s.toString().padStart(2,"0");
+"🕒 "+h+":"+m+":"+s;
 
 let saludo="";
 
-if(h<12) saludo="☀️ Buenos días";
+if(h<12) saludo="☀ Buenos días";
 else if(h<19) saludo="🌤 Buenas tardes";
 else saludo="🌙 Buenas noches";
 
@@ -214,80 +221,61 @@ document.getElementById("saludo").innerText=saludo;
 
 }
 
-setInterval(actualizarHora,1000);
-actualizarHora();
+setInterval(reloj,1000);
 
 /* CONTADOR */
 
-const totalDias=365;
 const fechaEvento=new Date("2026-11-07T00:00:00");
 
-function actualizar(){
+function contador(){
 
 const ahora=new Date();
 
 let diff=fechaEvento-ahora;
 
-let segundos=Math.floor(diff/1000)%60;
-let minutos=Math.floor(diff/(1000*60))%60;
-let horas=Math.floor(diff/(1000*60*60))%24;
+let dias=Math.floor(diff/(1000*60*60*24));
+let horas=Math.floor(diff/(1000*60*60)%24);
+let minutos=Math.floor(diff/(1000*60)%60);
+let segundos=Math.floor(diff/1000%60);
 
-let totalDiasRestantes=Math.floor(diff/(1000*60*60*24));
-
-let anios=Math.floor(totalDiasRestantes/365);
-let meses=Math.floor((totalDiasRestantes%365)/30);
-let dias=(totalDiasRestantes%365)%30;
-
-document.getElementById("anios").innerText=anios;
-document.getElementById("meses").innerText=meses;
 document.getElementById("dias").innerText=dias;
 document.getElementById("horas").innerText=horas;
 document.getElementById("minutos").innerText=minutos;
 document.getElementById("segundos").innerText=segundos;
 
-let progreso=((totalDias-totalDiasRestantes)/totalDias)*100;
-
-document.getElementById("barraProgreso").style.width=progreso+"%";
-
-document.getElementById("textoBarra").innerText=
-"Faltan "+totalDiasRestantes+" días";
-
 }
 
-setInterval(actualizar,1000);
-actualizar();
+setInterval(contador,1000);
 
 /* CARRUSEL */
 
-const imagenes=[];
-
-for(let i=1;i<=8;i++){
-imagenes.push("foto"+i+".jpg");
-}
-
 const carrusel=document.getElementById("carrusel");
 
-imagenes.forEach((nombre,index)=>{
+for(let i=1;i<=8;i++){
 
-const div=document.createElement("div");
+let div=document.createElement("div");
+
 div.classList.add("slide");
 
-if(index===0)div.classList.add("activo");
+if(i==1)div.classList.add("activo");
 
-const img=document.createElement("img");
-img.src="fotos/"+nombre;
+let img=document.createElement("img");
+
+img.src="fotos/foto"+i+".jpg";
 
 div.appendChild(img);
+
 carrusel.appendChild(div);
 
-});
+}
 
 setInterval(()=>{
 
 let slides=document.querySelectorAll(".slide");
-let actual=document.querySelector(".slide.activo");
 
-let index=Array.from(slides).indexOf(actual);
+let actual=document.querySelector(".activo");
+
+let index=[...slides].indexOf(actual);
 
 actual.classList.remove("activo");
 
@@ -295,7 +283,7 @@ slides[(index+1)%slides.length].classList.add("activo");
 
 },4000);
 
-/* CLIMA MERIDA */
+/* CLIMA */
 
 fetch("https://api.open-meteo.com/v1/forecast?latitude=20.97&longitude=-89.63&current_weather=true")
 
@@ -306,28 +294,21 @@ fetch("https://api.open-meteo.com/v1/forecast?latitude=20.97&longitude=-89.63&cu
 let temp=data.current_weather.temperature;
 let code=data.current_weather.weathercode;
 
-document.getElementById("clima").innerText=
-"🌡 "+temp+"°C";
+document.getElementById("clima").innerText="🌡 "+temp+"°C";
 
 animacionClima(code);
 
 });
 
+/* animacion clima */
+
 function animacionClima(code){
 
 let color="#ffffff";
 
-if(code==0){
-color="#ffd000";
-}
+if(code==0) color="#ffd000";
 
-else if(code<4){
-color="#cccccc";
-}
-
-else if(code>=61){
-color="#00aaff";
-}
+if(code>50) color="#00aaff";
 
 tsParticles.load("tsparticles",{
 
