@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>43° Aniversario Drogadictos Anónimos AC</title>
 
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-
-font-family:Segoe UI;
+font-family:'Segoe UI',sans-serif;
 background:linear-gradient(180deg,#1f3c88,#0f1f4d);
 color:white;
 overflow-x:hidden;
-text-align:center;
-
 }
 
 #tsparticles{
@@ -35,129 +26,134 @@ z-index:-1;
 }
 
 .main{
-
-padding:20px;
-
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:25px 15px;
+text-align:center;
 }
 
 h1{
-
-color:#ffd000;
-margin-bottom:10px;
-
-}
-
-.info{
-
+font-size:26px;
+color:#ffcc00;
 margin-bottom:20px;
-font-size:18px;
-
 }
 
-#clima{
+/* BARRA */
 
-font-size:24px;
-color:#ffd000;
-margin-top:5px;
-
+.barra-contenedor{
+width:95%;
+height:32px;
+background:rgba(255,255,255,0.2);
+border-radius:25px;
+overflow:hidden;
+margin-bottom:30px;
 }
 
-#hora{
-
-font-size:20px;
-
+.barra-progreso{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#ffd000,#ffae00,#ffcc00);
+border-radius:25px;
+transition:width 1s ease;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+color:#1f1f1f;
+font-size:12px;
 }
 
-#saludo{
-
-font-size:22px;
-margin-top:5px;
-
-}
-
-/* contador */
+/* CONTADOR */
 
 .contenedor{
-
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
 gap:15px;
-margin-top:20px;
-
+margin-bottom:30px;
 }
 
 .caja{
-
 background:rgba(20,30,60,0.9);
-padding:18px;
+padding:18px 15px;
 border-radius:18px;
-width:100px;
+width:90px;
 box-shadow:0 15px 35px rgba(0,0,0,0.6);
-
 }
 
 .numero{
-
-font-size:28px;
-color:#ffd000;
+font-size:24px;
 font-weight:bold;
-animation:flip 1s;
-
+color:#ffcc00;
 }
 
 .texto{
-
 font-size:12px;
-
+margin-top:5px;
 }
 
-@keyframes flip{
+/* CLIMA */
 
-0%{transform:rotateX(90deg)}
-100%{transform:rotateX(0)}
-
+.clima-info{
+display:flex;
+gap:30px;
+flex-wrap:wrap;
+justify-content:center;
+margin-bottom:30px;
+font-size:18px;
 }
 
-/* carrusel */
+#saludo{
+font-weight:bold;
+}
+
+#clima{
+color:#ffd000;
+font-weight:bold;
+}
+
+/* CARRUSEL */
 
 .carrusel{
-
 position:relative;
 width:95%;
 height:40vh;
 overflow:hidden;
-margin:25px auto;
 border-radius:20px;
-
+margin-bottom:25px;
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
 }
 
 .slide{
-
 position:absolute;
 width:100%;
 height:100%;
 opacity:0;
 transition:opacity 1.5s;
-
 }
 
 .slide img{
-
 width:100%;
 height:100%;
 object-fit:cover;
-
 }
 
 .activo{
-
 opacity:1;
+}
 
+/* MENSAJE */
+
+.mensaje-final{
+padding:15px;
+border:2px solid #ffcc00;
+border-radius:20px;
+background:rgba(20,30,60,0.7);
 }
 
 </style>
-
 </head>
 
 <body>
@@ -166,162 +162,232 @@ opacity:1;
 
 <div class="main">
 
-<h1>🎉 43° Aniversario Drogadictos Anónimos AC</h1>
+<h1>📅 43° Aniversario Drogadictos Anónimos AC</h1>
 
-<div class="info">
-
-📍 Santa Cruz Palomeque, Mérida, Yucatán
-
-<div id="clima">Cargando clima...</div>
-
-<div id="hora"></div>
-
-<div id="saludo"></div>
-
+<div class="barra-contenedor">
+<div class="barra-progreso" id="barraProgreso">
+<span id="textoBarra"></span>
+</div>
 </div>
 
 <div class="contenedor">
 
-<div class="caja"><div id="dias" class="numero"></div><div class="texto">DÍAS</div></div>
+<div class="caja"><div class="numero" id="anios">0</div><div class="texto">AÑOS</div></div>
+<div class="caja"><div class="numero" id="meses">0</div><div class="texto">MESES</div></div>
+<div class="caja"><div class="numero" id="dias">0</div><div class="texto">DÍAS</div></div>
+<div class="caja"><div class="numero" id="horas">0</div><div class="texto">HORAS</div></div>
+<div class="caja"><div class="numero" id="minutos">0</div><div class="texto">MINUTOS</div></div>
+<div class="caja"><div class="numero" id="segundos">0</div><div class="texto">SEGUNDOS</div></div>
 
-<div class="caja"><div id="horas" class="numero"></div><div class="texto">HORAS</div></div>
+</div>
 
-<div class="caja"><div id="minutos" class="numero"></div><div class="texto">MINUTOS</div></div>
+<div class="clima-info">
 
-<div class="caja"><div id="segundos" class="numero"></div><div class="texto">SEGUNDOS</div></div>
+<div id="saludo"></div>
+
+<div id="hora"></div>
+
+<div id="clima">Cargando clima...</div>
 
 </div>
 
 <div class="carrusel" id="carrusel"></div>
 
+<div class="mensaje-final">
+<h2>🤝 ¡Te esperamos!</h2>
+<p>Únete a nosotros en la celebración de 43 años de logros, unidad y recuperación.</p>
+</div>
+
 </div>
 
 <script>
 
+/* CONTADOR */
+
+const totalDias = 365;
+const fechaEvento = new Date("2026-11-07T00:00:00");
+
+function actualizar(){
+
+const ahora = new Date();
+
+let diff = fechaEvento - ahora;
+
+let segundos = Math.floor(diff / 1000) % 60;
+let minutos = Math.floor(diff / (1000*60)) % 60;
+let horas = Math.floor(diff / (1000*60*60)) % 24;
+
+let totalDiasRestantes = Math.floor(diff / (1000*60*60*24));
+
+let anios = Math.floor(totalDiasRestantes / 365);
+let meses = Math.floor((totalDiasRestantes % 365) / 30);
+let dias = (totalDiasRestantes % 365) % 30;
+
+document.getElementById("anios").innerText = anios;
+document.getElementById("meses").innerText = meses;
+document.getElementById("dias").innerText = dias;
+document.getElementById("horas").innerText = horas;
+document.getElementById("minutos").innerText = minutos;
+document.getElementById("segundos").innerText = segundos;
+
+let progreso = ((totalDias - totalDiasRestantes) / totalDias) * 100;
+document.getElementById("barraProgreso").style.width = progreso + "%";
+document.getElementById("textoBarra").innerText =
+`Faltan ${totalDiasRestantes} días`;
+
+}
+
+setInterval(actualizar,1000);
+
+
 /* RELOJ */
 
-function reloj(){
+function actualizarHora(){
 
-const ahora=new Date();
+const ahora = new Date();
 
-let h=ahora.getHours();
-let m=ahora.getMinutes();
-let s=ahora.getSeconds();
+let h = ahora.getHours();
+let m = ahora.getMinutes();
+let s = ahora.getSeconds();
 
-document.getElementById("hora").innerText=
+if(m<10)m="0"+m;
+if(s<10)s="0"+s;
+
+document.getElementById("hora").innerText =
 "🕒 "+h+":"+m+":"+s;
 
 let saludo="";
 
-if(h<12) saludo="☀ Buenos días";
-else if(h<19) saludo="🌤 Buenas tardes";
-else saludo="🌙 Buenas noches";
+if(h<12){saludo="☀ Buenos días";}
+else if(h<19){saludo="🌤 Buenas tardes";}
+else{saludo="🌙 Buenas noches";}
 
-document.getElementById("saludo").innerText=saludo;
-
-}
-
-setInterval(reloj,1000);
-
-/* CONTADOR */
-
-const fechaEvento=new Date("2026-11-07T00:00:00");
-
-function contador(){
-
-const ahora=new Date();
-
-let diff=fechaEvento-ahora;
-
-let dias=Math.floor(diff/(1000*60*60*24));
-let horas=Math.floor(diff/(1000*60*60)%24);
-let minutos=Math.floor(diff/(1000*60)%60);
-let segundos=Math.floor(diff/1000%60);
-
-document.getElementById("dias").innerText=dias;
-document.getElementById("horas").innerText=horas;
-document.getElementById("minutos").innerText=minutos;
-document.getElementById("segundos").innerText=segundos;
+document.getElementById("saludo").innerText = saludo;
 
 }
 
-setInterval(contador,1000);
+setInterval(actualizarHora,1000);
 
-/* CARRUSEL */
 
-const carrusel=document.getElementById("carrusel");
+/* CLIMA Y PARTICULAS */
 
-for(let i=1;i<=8;i++){
-
-let div=document.createElement("div");
-
-div.classList.add("slide");
-
-if(i==1)div.classList.add("activo");
-
-let img=document.createElement("img");
-
-img.src="fotos/foto"+i+".jpg";
-
-div.appendChild(img);
-
-carrusel.appendChild(div);
-
-}
-
-setInterval(()=>{
-
-let slides=document.querySelectorAll(".slide");
-
-let actual=document.querySelector(".activo");
-
-let index=[...slides].indexOf(actual);
-
-actual.classList.remove("activo");
-
-slides[(index+1)%slides.length].classList.add("activo");
-
-},4000);
-
-/* CLIMA */
-
-fetch("https://api.open-meteo.com/v1/forecast?latitude=20.97&longitude=-89.63&current_weather=true")
+fetch("https://api.open-meteo.com/v1/forecast?latitude=20.97&longitude=-89.62&current_weather=true")
 
 .then(res=>res.json())
 
 .then(data=>{
 
 let temp=data.current_weather.temperature;
-let code=data.current_weather.weathercode;
+let viento=data.current_weather.windspeed;
+let codigo=data.current_weather.weathercode;
 
-document.getElementById("clima").innerText="🌡 "+temp+"°C";
+document.getElementById("clima").innerText =
+"📍 Santa Cruz Palomeque Mérida | 🌡 "+temp+"°C | 💨 "+viento+" km/h";
 
-animacionClima(code);
+let colores=["#ffffff"];
+let velocidad=1;
+let direccion="top";
 
-});
+/* SOL */
 
-/* animacion clima */
+if(codigo==0){
 
-function animacionClima(code){
+colores=["#ffd000","#ffcc00","#fff2a6"];
 
-let color="#ffffff";
+}
 
-if(code==0) color="#ffd000";
+/* NUBLADO */
 
-if(code>50) color="#00aaff";
+else if(codigo>=1 && codigo<=3){
+
+colores=["#d6d6d6","#bfbfbf","#8c8c8c"];
+
+}
+
+/* LLUVIA */
+
+else if(codigo>=51){
+
+colores=["#666","#888","#aaa"];
+direccion="bottom";
+velocidad=2;
+
+}
+
+/* VIENTO */
+
+if(viento>20){
+
+colores=["#5dade2","#3498db","#85c1e9"];
+direccion="right";
+velocidad=4;
+
+}
 
 tsParticles.load("tsparticles",{
 
+fpsLimit:60,
+
 particles:{
+
 number:{value:120},
-color:{value:color},
+
+color:{value:colores},
+
+shape:{type:"circle"},
+
+opacity:{value:{min:0.3,max:0.8}},
+
 size:{value:{min:1,max:4}},
-move:{enable:true,speed:1}
+
+move:{
+enable:true,
+speed:velocidad,
+direction:direccion,
+outModes:{default:"out"}
+}
+
 }
 
 });
 
+});
+
+
+/* CARRUSEL */
+
+const imagenes=[];
+
+for(let i=1;i<=8;i++){
+imagenes.push(`foto${i}.jpg`);
 }
+
+const carrusel=document.getElementById("carrusel");
+
+imagenes.forEach((nombre,index)=>{
+
+const div=document.createElement("div");
+div.classList.add("slide");
+if(index===0)div.classList.add("activo");
+
+const img=document.createElement("img");
+img.src="fotos/"+nombre;
+
+div.appendChild(img);
+carrusel.appendChild(div);
+
+});
+
+setInterval(()=>{
+
+let slides=document.querySelectorAll(".slide");
+let actual=document.querySelector(".slide.activo");
+let index=Array.from(slides).indexOf(actual);
+
+actual.classList.remove("activo");
+slides[(index+1)%slides.length].classList.add("activo");
+
+},4000);
 
 </script>
 
