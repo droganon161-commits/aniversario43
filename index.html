@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>43 Aniversario</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>47° Aniversario</title>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
 
 <style>
 
@@ -12,7 +18,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:'Segoe UI',sans-serif;
 }
 
 body{
@@ -20,39 +26,52 @@ body{
 height:100vh;
 overflow:hidden;
 
-background:linear-gradient(180deg,#1a2a6c,#0f2027);
+background:linear-gradient(180deg,#1f3c88,#0f1f4d);
 
 color:white;
 
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:flex-start;
 
 }
 
 /* PARTICULAS */
 
-#particles{
+#tsparticles{
 
 position:fixed;
-top:0;
-left:0;
-
 width:100%;
 height:100%;
-
-z-index:-1;
+z-index:-5;
 
 }
 
 /* TITULO */
 
-h1{
+.titulo{
+
+font-size:38px;
 
 margin-top:10px;
-font-size:28px;
-color:#FFD700;
+
+background:linear-gradient(90deg,#FFD700,#fff4b0,#FFD700);
+
+background-size:200%;
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+animation:brillo 6s linear infinite;
+
+text-align:center;
+
+}
+
+@keyframes brillo{
+
+0%{background-position:0%}
+100%{background-position:200%}
 
 }
 
@@ -60,8 +79,18 @@ color:#FFD700;
 
 #saludo{
 
-font-size:20px;
-margin-top:4px;
+font-size:22px;
+
+margin-top:5px;
+
+animation:fade 3s infinite alternate;
+
+}
+
+@keyframes fade{
+
+from{opacity:.5}
+to{opacity:1}
 
 }
 
@@ -70,37 +99,42 @@ margin-top:4px;
 #hora{
 
 font-size:18px;
-opacity:0.8;
+
+opacity:.8;
+
+margin-bottom:8px;
 
 }
 
 /* CONTADOR */
 
-.contador{
+.contenedor{
 
 display:flex;
 gap:10px;
-margin-top:10px;
 
 }
 
 .caja{
 
-background:rgba(0,0,0,0.6);
+background:rgba(20,30,60,.9);
 
 padding:12px;
 
-border-radius:12px;
+border-radius:15px;
+
+min-width:70px;
 
 text-align:center;
 
-min-width:70px;
+box-shadow:0 10px 25px rgba(0,0,0,.6);
 
 }
 
 .numero{
 
 font-size:24px;
+
 color:#FFD700;
 
 }
@@ -114,27 +148,21 @@ position:absolute;
 left:20px;
 top:220px;
 
-width:200px;
+width:220px;
 
 background:linear-gradient(180deg,#2193b0,#6dd5ed);
 
-border-radius:15px;
+border-radius:18px;
 
 padding:15px;
 
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-
-}
-
-.clima h3{
-
-margin-bottom:5px;
+box-shadow:0 15px 35px rgba(0,0,0,.6);
 
 }
 
 .temp{
 
-font-size:38px;
+font-size:42px;
 
 }
 
@@ -142,23 +170,45 @@ font-size:38px;
 
 .carrusel{
 
+position:relative;
+
 width:60%;
+height:240px;
 
-margin-top:10px;
+margin-top:12px;
 
-border-radius:15px;
+border-radius:20px;
 
 overflow:hidden;
 
-box-shadow:0 20px 40px rgba(0,0,0,0.6);
+box-shadow:0 20px 40px rgba(0,0,0,.7);
 
 }
 
-.carrusel img{
+.slide{
+
+position:absolute;
 
 width:100%;
-height:220px;
+height:100%;
+
+opacity:0;
+
+transition:opacity 1.5s;
+
+}
+
+.slide img{
+
+width:100%;
+height:100%;
 object-fit:cover;
+
+}
+
+.activo{
+
+opacity:1;
 
 }
 
@@ -166,17 +216,15 @@ object-fit:cover;
 
 .versiculo{
 
-margin-top:8px;
+margin-top:10px;
 
-width:60%;
-
-background:rgba(0,0,0,0.6);
+background:rgba(0,0,0,.5);
 
 padding:10px;
 
-border-radius:12px;
+border-radius:15px;
 
-font-size:14px;
+width:60%;
 
 text-align:center;
 
@@ -204,15 +252,16 @@ opacity:0;
 
 pointer-events:none;
 
-transition:opacity 2s;
+transition:opacity 2s ease;
 
-z-index:10;
+z-index:50;
 
 }
 
 .videoFull.activo{
 
 opacity:1;
+
 pointer-events:auto;
 
 }
@@ -230,37 +279,54 @@ object-fit:cover;
 
 <body>
 
-<canvas id="particles"></canvas>
+<div id="tsparticles"></div>
 
-<h1>43° ANIVERSARIO</h1>
+<div class="titulo">
+
+47° Aniversario<br>
+Drogadictos Anónimos A.C.
+
+</div>
 
 <div id="saludo"></div>
 
 <div id="hora"></div>
 
-<div class="contador">
+<div class="contenedor">
 
 <div class="caja">
-<div class="numero" id="dias"></div>
+<div id="anios" class="numero"></div>
+Años
+</div>
+
+<div class="caja">
+<div id="meses" class="numero"></div>
+Meses
+</div>
+
+<div class="caja">
+<div id="dias" class="numero"></div>
 Días
 </div>
 
 <div class="caja">
-<div class="numero" id="horas"></div>
+<div id="horas" class="numero"></div>
 Horas
 </div>
 
 <div class="caja">
-<div class="numero" id="minutos"></div>
+<div id="minutos" class="numero"></div>
 Min
 </div>
 
 <div class="caja">
-<div class="numero" id="segundos"></div>
+<div id="segundos" class="numero"></div>
 Seg
 </div>
 
 </div>
+
+<!-- CLIMA -->
 
 <div class="clima">
 
@@ -268,17 +334,17 @@ Seg
 
 <i class="wi wi-day-sunny" style="font-size:40px"></i>
 
-<div class="temp" id="temp"></div>
+<div id="temp" class="temp"></div>
 
-<div id="descripcion"></div>
-
-</div>
-
-<div class="carrusel">
-
-<img id="imagenCarrusel" src="fotos/foto1.jpg">
+<div id="desc"></div>
 
 </div>
+
+<!-- CARRUSEL -->
+
+<div class="carrusel" id="carrusel"></div>
+
+<!-- FRASE BIBLICA -->
 
 <div class="versiculo">
 
@@ -286,9 +352,11 @@ Seg
 
 </div>
 
+<!-- VIDEO -->
+
 <div class="videoFull" id="videoDiv">
 
-<video muted id="videoEvento">
+<video id="videoEvento" muted>
 
 <source src="fotos/video.mp4" type="video/mp4">
 
@@ -298,42 +366,63 @@ Seg
 
 <script>
 
-/* SALUDO Y HORA */
+/* SALUDO + HORA */
 
 function actualizarHora(){
 
-let ahora = new Date()
+let ahora=new Date()
 
-let horas = ahora.getHours()
+let h=ahora.getHours()
 
-let saludo = "Buenas noches"
+let saludo="Buenas noches 🌙"
 
-if(horas>=6 && horas<12) saludo="Buenos días"
-if(horas>=12 && horas<19) saludo="Buenas tardes"
+if(h>=6 && h<12) saludo="Buenos días ☀️"
+if(h>=12 && h<19) saludo="Buenas tardes 🌇"
 
 document.getElementById("saludo").innerText=saludo
 
-document.getElementById("hora").innerText=ahora.toLocaleTimeString()
+document.getElementById("hora").innerText=
+ahora.toLocaleTimeString()
 
 }
 
 setInterval(actualizarHora,1000)
 
-/* CONTADOR */
+/* CONTADOR EXACTO */
 
-const fechaEvento = new Date("2026-11-07T00:00:00")
+const evento=new Date("2026-11-07T00:00:00")
 
 function actualizarContador(){
 
-let ahora = new Date()
+let ahora=new Date()
 
-let diff = fechaEvento - ahora
+let anios=evento.getFullYear()-ahora.getFullYear()
+let meses=evento.getMonth()-ahora.getMonth()
+let dias=evento.getDate()-ahora.getDate()
 
-let dias = Math.floor(diff/1000/60/60/24)
-let horas = Math.floor(diff/1000/60/60)%24
-let minutos = Math.floor(diff/1000/60)%60
-let segundos = Math.floor(diff/1000)%60
+if(dias<0){
 
+meses--
+
+dias+=new Date(ahora.getFullYear(),ahora.getMonth()+1,0).getDate()
+
+}
+
+if(meses<0){
+
+anios--
+meses+=12
+
+}
+
+let diff=evento-ahora
+
+let horas=Math.floor(diff/1000/60/60)%24
+let minutos=Math.floor(diff/1000/60)%60
+let segundos=Math.floor(diff/1000)%60
+
+document.getElementById("anios").innerText=anios
+document.getElementById("meses").innerText=meses
 document.getElementById("dias").innerText=dias
 document.getElementById("horas").innerText=horas
 document.getElementById("minutos").innerText=minutos
@@ -345,24 +434,41 @@ setInterval(actualizarContador,1000)
 
 /* CARRUSEL */
 
-const imagenes=[
+const imagenes=[]
 
-"fotos/foto1.jpg",
-"fotos/foto2.jpg",
-"fotos/foto3.jpg",
-"fotos/foto4.jpg"
+for(let i=1;i<=8;i++){
 
-]
+imagenes.push("fotos/foto"+i+".jpg")
 
-let index=0
+}
+
+const carrusel=document.getElementById("carrusel")
+
+imagenes.forEach((img,i)=>{
+
+let div=document.createElement("div")
+
+div.classList.add("slide")
+
+if(i==0) div.classList.add("activo")
+
+div.innerHTML=`<img src="${img}">`
+
+carrusel.appendChild(div)
+
+})
 
 setInterval(()=>{
 
-index++
+let slides=document.querySelectorAll(".slide")
 
-if(index>=imagenes.length) index=0
+let actual=document.querySelector(".activo")
 
-document.getElementById("imagenCarrusel").src=imagenes[index]
+let i=[...slides].indexOf(actual)
+
+actual.classList.remove("activo")
+
+slides[(i+1)%slides.length].classList.add("activo")
 
 },5000)
 
@@ -374,9 +480,11 @@ fetch("https://api.open-meteo.com/v1/forecast?latitude=20.97&longitude=-89.62&cu
 
 .then(data=>{
 
-document.getElementById("temp").innerText=data.current_weather.temperature+"°C"
+document.getElementById("temp").innerText=
+data.current_weather.temperature+"°C"
 
-document.getElementById("descripcion").innerText="Actual"
+document.getElementById("desc").innerText=
+"Clima actual"
 
 })
 
@@ -386,28 +494,27 @@ const versiculos=[
 
 "Todo lo puedo en aquel que me fortalece — Filipenses 4:13",
 
-"El Señor es mi pastor, nada me faltará — Salmos 23:1",
+"El Señor es mi pastor nada me faltará — Salmos 23:1",
 
-"Dios es nuestro amparo y fortaleza — Salmos 46:1",
+"Dios es nuestro refugio y fortaleza — Salmos 46:1",
 
 "Busquen primero el reino de Dios — Mateo 6:33",
 
-"Confía en el Señor con todo tu corazón — Proverbios 3:5",
+"La paz os dejo mi paz os doy — Juan 14:27",
 
-"La paz os dejo, mi paz os doy — Juan 14:27"
+"Confía en el Señor con todo tu corazón — Proverbios 3:5"
 
 ]
 
 let hoy=new Date()
 
-let indice=(hoy.getDate()+hoy.getMonth())%versiculos.length
+let i=(hoy.getDate()+hoy.getMonth())%versiculos.length
 
-document.getElementById("versiculo").innerText=versiculos[indice]
+document.getElementById("versiculo").innerText=versiculos[i]
 
 /* VIDEO */
 
 const videoDiv=document.getElementById("videoDiv")
-
 const video=document.getElementById("videoEvento")
 
 function mostrarVideo(){
@@ -418,73 +525,38 @@ video.currentTime=0
 
 video.play()
 
-setTimeout(()=>{
+}
+
+video.onended=function(){
 
 videoDiv.classList.remove("activo")
 
-},20000)
+}
+
+/* mostrar cada 1 minuto */
+
+setInterval(()=>{
+
+if(video.paused){
+
+mostrarVideo()
 
 }
 
-setInterval(mostrarVideo,60000)
+},60000)
 
 /* PARTICULAS */
 
-const canvas=document.getElementById("particles")
+tsParticles.load("tsparticles",{
 
-const ctx=canvas.getContext("2d")
-
-canvas.width=window.innerWidth
-
-canvas.height=window.innerHeight
-
-let particles=[]
-
-for(let i=0;i<80;i++){
-
-particles.push({
-
-x:Math.random()*canvas.width,
-
-y:Math.random()*canvas.height,
-
-r:Math.random()*3+1,
-
-dx:(Math.random()-0.5),
-
-dy:(Math.random()-0.5)
-
-})
-
+particles:{
+number:{value:120},
+color:{value:["#ffd000","#ffffff","#ffae00"]},
+size:{value:{min:1,max:4}},
+move:{enable:true,speed:1}
 }
 
-function draw(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-particles.forEach(p=>{
-
-ctx.beginPath()
-
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-
-ctx.fillStyle="rgba(255,215,0,0.6)"
-
-ctx.fill()
-
-p.x+=p.dx
-p.y+=p.dy
-
-if(p.x<0||p.x>canvas.width)p.dx*=-1
-if(p.y<0||p.y>canvas.height)p.dy*=-1
-
 })
-
-requestAnimationFrame(draw)
-
-}
-
-draw()
 
 </script>
 
