@@ -22,41 +22,31 @@ font-family:'Segoe UI',sans-serif;
 }
 
 body{
-
 height:100vh;
 overflow:hidden;
-
 background:linear-gradient(180deg,#1f3c88,#0f1f4d);
-
 color:white;
-
 display:flex;
 flex-direction:column;
 align-items:center;
-
 }
 
 /* PARTICULAS */
 
 #tsparticles{
-
 position:fixed;
 width:100%;
 height:100%;
-z-index:-5;
-
+z-index:-10;
 }
 
 /* TITULO */
 
 .titulo{
-
-font-size:40px;
-
+font-size:42px;
 margin-top:10px;
 
 background:linear-gradient(90deg,#FFD700,#fff4b0,#FFD700);
-
 background-size:200%;
 
 -webkit-background-clip:text;
@@ -65,39 +55,26 @@ background-size:200%;
 animation:brillo 6s linear infinite;
 
 text-align:center;
-
 }
 
 @keyframes brillo{
-
 0%{background-position:0%}
 100%{background-position:200%}
-
 }
 
-/* BARRA PROGRESO */
+/* BARRA */
 
 .barra-contenedor{
-
 width:70%;
-
-height:32px;
-
+height:34px;
 background:rgba(255,255,255,.25);
-
 border-radius:30px;
-
 overflow:hidden;
-
 margin-top:10px;
-margin-bottom:10px;
-
 }
 
 .barra-progreso{
-
 height:100%;
-
 width:0%;
 
 background:linear-gradient(90deg,#ffd000,#ffae00,#ffd000);
@@ -107,181 +84,129 @@ align-items:center;
 justify-content:center;
 
 font-weight:bold;
-
 color:#1a1a1a;
 
 transition:width 1s ease;
-
-font-size:14px;
-
+font-size:15px;
 }
 
 /* SALUDO */
 
 #saludo{
-
-font-size:22px;
-
-animation:fade 3s infinite alternate;
-
+font-size:26px;
+margin-top:6px;
+animation:fadeSaludo 3s infinite alternate;
 }
 
-@keyframes fade{
-
-from{opacity:.5}
-to{opacity:1}
-
+@keyframes fadeSaludo{
+from{opacity:.5; transform:scale(.95)}
+to{opacity:1; transform:scale(1)}
 }
 
 #hora{
-
-font-size:18px;
-opacity:.8;
-
+font-size:20px;
+opacity:.9;
 margin-bottom:10px;
-
 }
 
 /* CONTADOR */
 
 .contenedor{
-
 display:flex;
-gap:14px;
-
+gap:16px;
 }
 
 .caja{
-
 background:rgba(20,30,60,.95);
-
-padding:16px;
-
+padding:18px;
 border-radius:16px;
-
-min-width:95px;
-
+min-width:100px;
 text-align:center;
-
 box-shadow:0 15px 35px rgba(0,0,0,.6);
-
 }
 
 .numero{
-
-font-size:36px;
-
+font-size:40px;
 font-weight:bold;
-
 color:#FFD700;
-
 text-shadow:0 4px 10px rgba(0,0,0,.6);
-
 }
 
 .caja div:last-child{
-
 font-size:13px;
-
 margin-top:4px;
-
 }
 
 /* CLIMA */
 
 .clima{
-
 position:absolute;
-
 left:20px;
-top:240px;
+top:230px;
 
 width:220px;
 
 background:linear-gradient(180deg,#2193b0,#6dd5ed);
 
 border-radius:18px;
-
 padding:15px;
 
 box-shadow:0 15px 35px rgba(0,0,0,.6);
-
 }
 
 .temp{
-
 font-size:42px;
-
 }
 
 /* CARRUSEL */
 
 .carrusel{
-
 position:relative;
-
 width:60%;
-height:240px;
+height:250px;
 
 margin-top:15px;
 
 border-radius:20px;
-
 overflow:hidden;
 
 box-shadow:0 20px 40px rgba(0,0,0,.7);
 
+z-index:5;
 }
 
 .slide{
-
 position:absolute;
-
 width:100%;
 height:100%;
-
 opacity:0;
-
 transition:opacity 1.5s;
-
 }
 
 .slide img{
-
 width:100%;
 height:100%;
 object-fit:cover;
-
 }
 
 .activo{
-
 opacity:1;
-
 }
 
 /* FRASE */
 
 .versiculo{
-
 margin-top:10px;
-
 background:rgba(0,0,0,.5);
-
 padding:10px;
-
 border-radius:15px;
-
 width:60%;
-
 text-align:center;
-
 }
 
 /* VIDEO */
 
 .videoFull{
-
 position:fixed;
 
 top:0;
@@ -297,29 +222,22 @@ align-items:center;
 justify-content:center;
 
 opacity:0;
-
 pointer-events:none;
 
 transition:opacity 2s ease;
 
 z-index:50;
-
 }
 
 .videoFull.activo{
-
 opacity:1;
-
 pointer-events:auto;
-
 }
 
 video{
-
 width:100%;
 height:100%;
 object-fit:cover;
-
 }
 
 </style>
@@ -330,10 +248,8 @@ object-fit:cover;
 <div id="tsparticles"></div>
 
 <div class="titulo">
-
 47° Aniversario<br>
 Drogadictos Anónimos A.C.
-
 </div>
 
 <div class="barra-contenedor">
@@ -343,69 +259,36 @@ Drogadictos Anónimos A.C.
 </div>
 
 <div id="saludo"></div>
-
 <div id="hora"></div>
 
 <div class="contenedor">
 
-<div class="caja">
-<div id="anios" class="numero"></div>
-<div>Años</div>
-</div>
-
-<div class="caja">
-<div id="meses" class="numero"></div>
-<div>Meses</div>
-</div>
-
-<div class="caja">
-<div id="dias" class="numero"></div>
-<div>Días</div>
-</div>
-
-<div class="caja">
-<div id="horas" class="numero"></div>
-<div>Horas</div>
-</div>
-
-<div class="caja">
-<div id="minutos" class="numero"></div>
-<div>Min</div>
-</div>
-
-<div class="caja">
-<div id="segundos" class="numero"></div>
-<div>Seg</div>
-</div>
+<div class="caja"><div id="anios" class="numero"></div><div>Años</div></div>
+<div class="caja"><div id="meses" class="numero"></div><div>Meses</div></div>
+<div class="caja"><div id="dias" class="numero"></div><div>Días</div></div>
+<div class="caja"><div id="horas" class="numero"></div><div>Horas</div></div>
+<div class="caja"><div id="minutos" class="numero"></div><div>Min</div></div>
+<div class="caja"><div id="segundos" class="numero"></div><div>Seg</div></div>
 
 </div>
 
 <div class="clima">
-
 <h3>Mérida</h3>
-
 <i class="wi wi-day-sunny" style="font-size:40px"></i>
-
 <div id="temp" class="temp"></div>
-
 <div id="desc"></div>
-
 </div>
 
 <div class="carrusel" id="carrusel"></div>
 
 <div class="versiculo">
-
 📖 <span id="versiculo"></span>
-
 </div>
 
 <div class="videoFull" id="videoDiv">
 
 <video id="videoEvento" muted>
-
 <source src="fotos/video.mp4" type="video/mp4">
-
 </video>
 
 </div>
@@ -442,30 +325,19 @@ function actualizarContador(){
 
 let ahora=new Date()
 
-let anios=evento.getFullYear()-ahora.getFullYear()
-let meses=evento.getMonth()-ahora.getMonth()
-let dias=evento.getDate()-ahora.getDate()
-
-if(dias<0){
-
-meses--
-
-dias+=new Date(ahora.getFullYear(),ahora.getMonth()+1,0).getDate()
-
-}
-
-if(meses<0){
-
-anios--
-meses+=12
-
-}
-
 let diff=evento-ahora
 
-let horas=Math.floor(diff/1000/60/60)%24
-let minutos=Math.floor(diff/1000/60)%60
 let segundos=Math.floor(diff/1000)%60
+let minutos=Math.floor(diff/1000/60)%60
+let horas=Math.floor(diff/1000/60/60)%24
+
+let dias=Math.floor(diff/(1000*60*60*24))
+
+let meses=Math.floor(dias/30)
+let anios=Math.floor(meses/12)
+
+meses=meses%12
+dias=dias%30
 
 document.getElementById("anios").innerText=anios
 document.getElementById("meses").innerText=meses
@@ -474,16 +346,12 @@ document.getElementById("horas").innerText=horas
 document.getElementById("minutos").innerText=minutos
 document.getElementById("segundos").innerText=segundos
 
-/* BARRA PROGRESO */
+/* BARRA */
 
-let totalDias=365
+let total=365
+let restantes=Math.floor(diff/(1000*60*60*24))
 
-let restantes=Math.floor((evento-ahora)/(1000*60*60*24))
-
-let progreso=((totalDias-restantes)/totalDias)*100
-
-if(progreso<0) progreso=0
-if(progreso>100) progreso=100
+let progreso=((total-restantes)/total)*100
 
 document.getElementById("barraProgreso").style.width=progreso+"%"
 
@@ -549,20 +417,15 @@ document.getElementById("desc").innerText="Clima actual"
 
 })
 
-/* FRASE BIBLICA */
+/* FRASE */
 
 const versiculos=[
 
 "Todo lo puedo en aquel que me fortalece — Filipenses 4:13",
-
 "El Señor es mi pastor nada me faltará — Salmos 23:1",
-
 "Dios es nuestro refugio y fortaleza — Salmos 46:1",
-
 "Busquen primero el reino de Dios — Mateo 6:33",
-
 "La paz os dejo mi paz os doy — Juan 14:27",
-
 "Confía en el Señor con todo tu corazón — Proverbios 3:5"
 
 ]
@@ -621,4 +484,3 @@ move:{enable:true,speed:1}
 
 </body>
 </html>
-
