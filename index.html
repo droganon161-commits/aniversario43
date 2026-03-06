@@ -18,46 +18,21 @@ href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-ic
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+font-family:Segoe UI;
 }
 
 body{
 
 height:100vh;
 overflow:hidden;
-
 color:white;
 
 display:flex;
 flex-direction:column;
 align-items:center;
 
-transition:background 2s;
+background:linear-gradient(180deg,#1f3c88,#0f1f4d);
 
-}
-
-/* FONDOS */
-
-body.manana{
-background:linear-gradient(180deg,#3a7bd5,#00d2ff);
-}
-
-body.tarde{
-background:linear-gradient(180deg,#ff7e5f,#feb47b);
-}
-
-body.noche{
-background:linear-gradient(180deg,#0f2027,#203a43,#2c5364);
-}
-
-body.lluvia{
-background:linear-gradient(180deg,#4b6cb7,#182848);
-animation:lluviaFondo 10s linear infinite;
-}
-
-@keyframes lluviaFondo{
-0%{background-position:0 0;}
-100%{background-position:0 400px;}
 }
 
 /* PARTICULAS */
@@ -66,27 +41,23 @@ animation:lluviaFondo 10s linear infinite;
 position:fixed;
 width:100%;
 height:100%;
-z-index:-5;
+z-index:-1;
 }
 
 /* TITULO */
 
 .titulo{
 
-font-size:42px;
-
+font-size:40px;
 margin-top:10px;
+text-align:center;
 
 background:linear-gradient(90deg,#FFD700,#fff4b0,#FFD700);
-
 background-size:200%;
-
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 
 animation:brillo 6s linear infinite;
-
-text-align:center;
 
 }
 
@@ -100,52 +71,46 @@ text-align:center;
 .barra-contenedor{
 
 width:70%;
-
-height:32px;
-
+height:30px;
 background:rgba(255,255,255,.25);
-
 border-radius:30px;
-
 overflow:hidden;
-
-margin-top:10px;
-margin-bottom:10px;
+margin:10px;
 
 }
 
 .barra-progreso{
 
 height:100%;
-
 width:0%;
-
 background:linear-gradient(90deg,#ffd000,#ffae00,#ffd000);
 
 display:flex;
 align-items:center;
 justify-content:center;
 
+color:black;
 font-weight:bold;
-
-color:#1a1a1a;
-
-transition:width 1s ease;
-
-font-size:14px;
 
 }
 
 /* SALUDO */
 
 #saludo{
+
 font-size:22px;
+animation:fade 3s infinite alternate;
+
+}
+
+@keyframes fade{
+from{opacity:.5}
+to{opacity:1}
 }
 
 #hora{
 font-size:18px;
 opacity:.8;
-margin-bottom:10px;
 }
 
 /* CONTADOR */
@@ -153,7 +118,8 @@ margin-bottom:10px;
 .contenedor{
 
 display:flex;
-gap:14px;
+gap:12px;
+margin-top:10px;
 
 }
 
@@ -161,24 +127,22 @@ gap:14px;
 
 background:rgba(20,30,60,.95);
 
-padding:16px;
+padding:15px;
 
 border-radius:16px;
 
-min-width:95px;
+min-width:90px;
 
 text-align:center;
 
-box-shadow:0 15px 35px rgba(0,0,0,.6);
+box-shadow:0 10px 30px rgba(0,0,0,.6);
 
 }
 
 .numero{
 
-font-size:36px;
-
+font-size:34px;
 font-weight:bold;
-
 color:#FFD700;
 
 }
@@ -188,16 +152,14 @@ color:#FFD700;
 .clima{
 
 position:absolute;
-
 left:20px;
-top:200px;
+top:230px;
 
-width:230px;
+width:220px;
 
 background:linear-gradient(180deg,#2193b0,#6dd5ed);
 
 border-radius:18px;
-
 padding:15px;
 
 box-shadow:0 15px 35px rgba(0,0,0,.6);
@@ -205,25 +167,22 @@ box-shadow:0 15px 35px rgba(0,0,0,.6);
 }
 
 .temp{
-
-font-size:42px;
-
+font-size:40px;
 }
 
 /* CARRUSEL */
 
 .carrusel{
 
-position:relative;
-
 width:60%;
 height:240px;
 
-margin-top:15px;
-
 border-radius:20px;
-
 overflow:hidden;
+
+position:relative;
+
+margin-top:15px;
 
 box-shadow:0 20px 40px rgba(0,0,0,.7);
 
@@ -232,22 +191,17 @@ box-shadow:0 20px 40px rgba(0,0,0,.7);
 .slide{
 
 position:absolute;
-
 width:100%;
 height:100%;
-
 opacity:0;
-
 transition:opacity 1.5s;
 
 }
 
 .slide img{
-
 width:100%;
 height:100%;
 object-fit:cover;
-
 }
 
 .activo{
@@ -277,7 +231,6 @@ text-align:center;
 .videoFull{
 
 position:fixed;
-
 top:0;
 left:0;
 
@@ -291,24 +244,27 @@ align-items:center;
 justify-content:center;
 
 opacity:0;
-
 pointer-events:none;
 
-transition:opacity 2s ease;
+transition:opacity 2s;
 
-z-index:50;
+z-index:10;
 
 }
 
 .videoFull.activo{
+
 opacity:1;
 pointer-events:auto;
+
 }
 
 video{
+
 width:100%;
 height:100%;
 object-fit:cover;
+
 }
 
 </style>
@@ -336,12 +292,35 @@ Drogadictos Anónimos A.C.
 
 <div class="contenedor">
 
-<div class="caja"><div id="anios" class="numero"></div><div>Años</div></div>
-<div class="caja"><div id="meses" class="numero"></div><div>Meses</div></div>
-<div class="caja"><div id="dias" class="numero"></div><div>Días</div></div>
-<div class="caja"><div id="horas" class="numero"></div><div>Horas</div></div>
-<div class="caja"><div id="minutos" class="numero"></div><div>Min</div></div>
-<div class="caja"><div id="segundos" class="numero"></div><div>Seg</div></div>
+<div class="caja">
+<div id="anios" class="numero"></div>
+<div>Años</div>
+</div>
+
+<div class="caja">
+<div id="meses" class="numero"></div>
+<div>Meses</div>
+</div>
+
+<div class="caja">
+<div id="dias" class="numero"></div>
+<div>Días</div>
+</div>
+
+<div class="caja">
+<div id="horas" class="numero"></div>
+<div>Horas</div>
+</div>
+
+<div class="caja">
+<div id="minutos" class="numero"></div>
+<div>Min</div>
+</div>
+
+<div class="caja">
+<div id="segundos" class="numero"></div>
+<div>Seg</div>
+</div>
 
 </div>
 
@@ -355,14 +334,14 @@ Drogadictos Anónimos A.C.
 
 <div id="desc"></div>
 
-<div id="lluviaHora"></div>
-
 </div>
 
 <div class="carrusel" id="carrusel"></div>
 
 <div class="versiculo">
+
 📖 <span id="versiculo"></span>
+
 </div>
 
 <div class="videoFull" id="videoDiv">
@@ -377,30 +356,18 @@ Drogadictos Anónimos A.C.
 
 <script>
 
-/* SALUDO Y FONDO */
+/* SALUDO Y HORA */
 
 function actualizarHora(){
 
 let ahora=new Date()
+
 let h=ahora.getHours()
 
 let saludo="Buenas noches 🌙"
 
-document.body.classList.remove("manana","tarde","noche")
-
-if(h>=6 && h<12){
-saludo="Buenos días ☀️"
-document.body.classList.add("manana")
-}
-
-else if(h>=12 && h<19){
-saludo="Buenas tardes 🌇"
-document.body.classList.add("tarde")
-}
-
-else{
-document.body.classList.add("noche")
-}
+if(h>=6 && h<12) saludo="Buenos días ☀️"
+if(h>=12 && h<19) saludo="Buenas tardes 🌇"
 
 document.getElementById("saludo").innerText=saludo
 
@@ -419,24 +386,51 @@ function actualizarContador(){
 
 let ahora=new Date()
 
+let anios=evento.getFullYear()-ahora.getFullYear()
+let meses=evento.getMonth()-ahora.getMonth()
+let dias=evento.getDate()-ahora.getDate()
+
+if(dias<0){
+
+meses--
+
+dias+=new Date(ahora.getFullYear(),ahora.getMonth()+1,0).getDate()
+
+}
+
+if(meses<0){
+
+anios--
+meses+=12
+
+}
+
 let diff=evento-ahora
 
-let dias=Math.floor(diff/(1000*60*60*24))
 let horas=Math.floor(diff/1000/60/60)%24
 let minutos=Math.floor(diff/1000/60)%60
 let segundos=Math.floor(diff/1000)%60
 
+document.getElementById("anios").innerText=anios
+document.getElementById("meses").innerText=meses
 document.getElementById("dias").innerText=dias
 document.getElementById("horas").innerText=horas
 document.getElementById("minutos").innerText=minutos
 document.getElementById("segundos").innerText=segundos
 
-let progreso=((365-dias)/365)*100
+let diasRestantes=Math.floor(diff/(1000*60*60*24))
+
+let totalDias=365
+
+let progreso=((totalDias-diasRestantes)/totalDias)*100
+
+if(progreso<0) progreso=0
+if(progreso>100) progreso=100
 
 document.getElementById("barraProgreso").style.width=progreso+"%"
 
 document.getElementById("textoBarra").innerText=
-"Faltan "+dias+" días para el aniversario"
+"Faltan "+diasRestantes+" días para el aniversario"
 
 }
 
@@ -444,20 +438,29 @@ setInterval(actualizarContador,1000)
 
 /* CARRUSEL */
 
-const carrusel=document.getElementById("carrusel")
+const imagenes=[]
 
 for(let i=1;i<=8;i++){
 
+imagenes.push("fotos/foto"+i+".jpg")
+
+}
+
+const carrusel=document.getElementById("carrusel")
+
+imagenes.forEach((img,i)=>{
+
 let div=document.createElement("div")
+
 div.classList.add("slide")
 
-if(i==1) div.classList.add("activo")
+if(i==0) div.classList.add("activo")
 
-div.innerHTML=`<img src="fotos/foto${i}.jpg">`
+div.innerHTML=`<img src="${img}">`
 
 carrusel.appendChild(div)
 
-}
+})
 
 setInterval(()=>{
 
@@ -484,10 +487,13 @@ fetch("https://api.open-meteo.com/v1/forecast?latitude=20.97&longitude=-89.62&ho
 document.getElementById("temp").innerText=
 data.current_weather.temperature+"°C"
 
-let horas=data.hourly.time
 let lluvia=data.hourly.precipitation_probability
 
+let horas=data.hourly.time
+
 let ahora=new Date()
+
+let proxima=null
 
 for(let i=0;i<lluvia.length;i++){
 
@@ -497,9 +503,7 @@ let hora=new Date(horas[i])
 
 if(hora>ahora){
 
-document.getElementById("lluviaHora").innerText=
-"🌧 Probable lluvia a las "+hora.getHours()+":00"
-
+proxima=hora.getHours()+":00"
 break
 
 }
@@ -508,25 +512,118 @@ break
 
 }
 
+document.getElementById("desc").innerText=
+"Prob lluvia: "+(proxima?proxima:"No cercana")
+
 })
 
 /* FRASES */
 
-const versiculos=[ /* tus 100 frases aquí exactamente como las pegaste */ ]
+const versiculos=[
 
-function cambiarVersiculo(){
+"Todo lo puedo en aquel que me fortalece — Filipenses 4:13",
+"El Señor es mi pastor nada me faltará — Salmos 23:1",
+"Dios es nuestro refugio y fortaleza — Salmos 46:1",
+"Busquen primero el reino de Dios — Mateo 6:33",
+"La paz os dejo mi paz os doy — Juan 14:27",
+"Confía en el Señor con todo tu corazón — Proverbios 3:5",
+"Venid a mí todos los que estáis trabajados y cargados — Mateo 11:28",
+"La verdad os hará libres — Juan 8:32",
+"No temas porque yo estoy contigo — Isaías 41:10",
+"Clama a mí y yo te responderé — Jeremías 33:3",
+"El Señor es mi luz y mi salvación — Salmos 27:1",
+"El Señor está cerca de los quebrantados de corazón — Salmos 34:18",
+"Los que esperan en el Señor renovarán sus fuerzas — Isaías 40:31",
+"Mi gracia es suficiente para ti — 2 Corintios 12:9",
+"El amor todo lo soporta — 1 Corintios 13:7",
+"Dios es amor — 1 Juan 4:8",
+"Tu palabra es lámpara a mis pies — Salmos 119:105",
+"El Señor sostiene a los que caen — Salmos 145:14",
+"Bienaventurados los de limpio corazón — Mateo 5:8",
+"La fe mueve montañas — Mateo 17:20",
+"El que comenzó la buena obra la perfeccionará — Filipenses 1:6",
+"El Señor es bueno refugio en el día de la angustia — Nahum 1:7",
+"Bendito el hombre que confía en el Señor — Jeremías 17:7",
+"El Señor es mi fortaleza y mi escudo — Salmos 28:7",
+"Esfuérzate y sé valiente — Josué 1:9",
+"El Señor pelea por ustedes — Éxodo 14:14",
+"Todo tiene su tiempo — Eclesiastés 3:1",
+"El corazón alegre hermosea el rostro — Proverbios 15:13",
+"El Señor da fuerza a su pueblo — Salmos 29:11",
+"El Señor es bueno para con todos — Salmos 145:9",
+"Los mansos heredarán la tierra — Mateo 5:5",
+"La oración del justo es poderosa — Santiago 5:16",
+"El Señor guarda a los sencillos — Salmos 116:6",
+"El Señor es mi ayudador — Hebreos 13:6",
+"El Señor es mi roca y mi salvación — Salmos 62:6",
+"El Señor es mi refugio — Salmos 91:2",
+"El Señor es justo en todos sus caminos — Salmos 145:17",
+"El Señor cuida a los que lo aman — Salmos 145:20",
+"El Señor es grande y digno de alabanza — Salmos 96:4",
+"El Señor da sabiduría — Proverbios 2:6",
+"El temor del Señor es el principio de la sabiduría — Proverbios 9:10",
+"El Señor es bueno y recto — Salmos 25:8",
+"El Señor bendice a su pueblo con paz — Salmos 29:11",
+"El Señor levanta a los caídos — Salmos 146:8",
+"El Señor oye el clamor de los justos — Salmos 34:17",
+"El Señor libra de todas las angustias — Salmos 34:17",
+"El Señor guarda tu salida y tu entrada — Salmos 121:8",
+"El Señor es mi ayudador no temeré — Hebreos 13:6",
+"El Señor es mi herencia — Salmos 16:5",
+"El Señor es mi fortaleza — Habacuc 3:19",
+"El Señor me sostiene — Salmos 54:4",
+"El Señor es mi esperanza — Salmos 71:5",
+"El Señor es mi defensa — Salmos 59:9",
+"El Señor es bueno su misericordia es eterna — Salmos 100:5",
+"El Señor es fiel en todas sus palabras — Salmos 145:13",
+"El Señor es compasivo y misericordioso — Salmos 103:8",
+"El Señor es paciente y grande en misericordia — Salmos 145:8",
+"El Señor es mi refugio y mi fortaleza — Salmos 91:2",
+"El Señor es mi roca — Salmos 18:2",
+"El Señor es mi libertador — Salmos 18:2",
+"El Señor es mi escudo — Salmos 18:2",
+"El Señor es mi salvación — Salmos 27:1",
+"El Señor es mi ayuda — Salmos 121:2",
+"El Señor es mi guardador — Salmos 121:5",
+"El Señor es mi sombra — Salmos 121:5",
+"El Señor es mi protector — Salmos 121:7",
+"El Señor es mi paz — Jueces 6:24",
+"El Señor es mi pastor — Salmos 23:1",
+"El Señor me guía por sendas de justicia — Salmos 23:3",
+"Aunque ande en valle de sombra no temeré — Salmos 23:4",
+"Tu vara y tu cayado me infunden aliento — Salmos 23:4",
+"Ciertamente el bien y la misericordia me seguirán — Salmos 23:6",
+"El Señor habita en medio de su pueblo — Salmos 46:5",
+"Estad quietos y conoced que yo soy Dios — Salmos 46:10",
+"El Señor es refugio para el oprimido — Salmos 9:9",
+"El Señor escucha a los pobres — Salmos 69:33",
+"El Señor cuida a los humildes — Salmos 147:6",
+"El Señor sana a los quebrantados de corazón — Salmos 147:3",
+"Grande es nuestro Señor — Salmos 147:5",
+"El Señor sostiene a los humildes — Salmos 147:6",
+"El Señor se complace en los que le temen — Salmos 147:11",
+"El Señor fortalece los cerrojos de tus puertas — Salmos 147:13",
+"El Señor envía su palabra y los sana — Salmos 107:20",
+"Den gracias al Señor porque es bueno — Salmos 107:1",
+"El Señor levanta al pobre del polvo — Salmos 113:7",
+"El Señor guarda a los extranjeros — Salmos 146:9",
+"El Señor reina para siempre — Salmos 146:10",
+"El Señor ama la justicia — Salmos 11:7",
+"El Señor prueba al justo — Salmos 11:5",
+"El Señor está en su santo templo — Salmos 11:4",
+"El Señor oye cuando clamo — Salmos 4:3",
+"El Señor me oye cuando le invoco — Salmos 4:3",
+"En paz me acostaré y asimismo dormiré — Salmos 4:8",
+"El Señor me hace vivir confiado — Salmos 4:8"
 
-let i=Math.floor(Math.random()*versiculos.length)
+]
 
-document.getElementById("versiculo").innerText=versiculos[i]
+let indice=Math.floor(Math.random()*versiculos.length)
 
-}
+document.getElementById("versiculo").innerText=
+versiculos[indice]
 
-cambiarVersiculo()
-
-setInterval(cambiarVersiculo,20000)
-
-/* VIDEO CADA 5 MIN */
+/* VIDEO */
 
 const videoDiv=document.getElementById("videoDiv")
 const video=document.getElementById("videoEvento")
@@ -562,9 +659,9 @@ mostrarVideo()
 tsParticles.load("tsparticles",{
 
 particles:{
-number:{value:100},
-color:{value:["#ffd000","#ffffff","#88c0ff"]},
-size:{value:{min:1,max:3}},
+number:{value:120},
+color:{value:["#ffd000","#ffffff","#ffae00"]},
+size:{value:{min:1,max:4}},
 move:{enable:true,speed:1}
 }
 
