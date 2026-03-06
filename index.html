@@ -1,531 +1,346 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>47 Aniversario Libre de Drogas</title>
 
-<title>47° Aniversario Drogadictos Anónimos</title>
-
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/weather-icons/css/weather-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI;
-}
-
 body{
-
-height:100vh;
+margin:0;
+font-family:Arial;
 overflow:hidden;
 color:white;
+}
 
+#background{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-3;
+transition:background 3s;
+}
+
+#particles{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-2;
+}
+
+.container{
+width:100%;
+height:100vh;
 display:flex;
 flex-direction:column;
 align-items:center;
-
-background-size:400% 400%;
-animation:fondoAnimado 40s ease infinite;
-
+justify-content:space-between;
+padding:10px;
 }
-
-@keyframes fondoAnimado{
-
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-
-}
-
-/* PARTICULAS */
-
-#tsparticles{
-position:fixed;
-width:100%;
-height:100%;
-z-index:-1;
-}
-
-/* TITULO */
 
 .titulo{
-
-font-size:42px;
-margin-top:10px;
-text-align:center;
-
-background:linear-gradient(90deg,#FFD700,#fff4b0,#FFD700);
-background-size:200%;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-
-animation:brillo 6s linear infinite;
-
+font-size:50px;
+text-shadow:0 0 20px black;
 }
 
-@keyframes brillo{
-0%{background-position:0%}
-100%{background-position:200%}
+.saludo{
+font-size:30px;
 }
 
-/* BARRA */
-
-.barra-contenedor{
-
-width:70%;
-height:30px;
-background:rgba(255,255,255,.25);
-border-radius:30px;
-overflow:hidden;
-margin:10px;
-
-}
-
-.barra-progreso{
-
-height:100%;
-width:0%;
-
-background:linear-gradient(90deg,#ffd000,#ffae00,#ffd000);
-
+.contenido{
 display:flex;
+gap:60px;
 align-items:center;
-justify-content:center;
-
-color:black;
-font-weight:bold;
-
 }
-
-/* SALUDO */
-
-#saludo{
-
-font-size:22px;
-animation:fade 3s infinite alternate;
-
-}
-
-@keyframes fade{
-from{opacity:.5}
-to{opacity:1}
-}
-
-#hora{
-font-size:18px;
-opacity:.9;
-}
-
-/* CONTADOR */
-
-.contenedor{
-
-display:flex;
-gap:14px;
-margin-top:10px;
-
-}
-
-.caja{
-
-background:rgba(20,30,60,.85);
-
-padding:15px;
-
-border-radius:16px;
-
-min-width:95px;
-
-text-align:center;
-
-box-shadow:0 10px 30px rgba(0,0,0,.6);
-
-}
-
-.numero{
-
-font-size:36px;
-font-weight:bold;
-color:#FFD700;
-
-}
-
-/* CLIMA */
 
 .clima{
-
-position:absolute;
-left:20px;
-top:230px;
-
-width:230px;
-
-background:rgba(0,0,0,.35);
-backdrop-filter:blur(8px);
-
-border-radius:18px;
-padding:15px;
-
-}
-
-.temp{
-font-size:42px;
-}
-
-/* CARRUSEL */
-
-.carrusel{
-
-width:60%;
-height:240px;
-
+width:260px;
+background:rgba(0,0,0,0.4);
+padding:20px;
 border-radius:20px;
+text-align:center;
+backdrop-filter:blur(10px);
+}
+
+.centro{
+text-align:center;
+}
+
+.contador{
+display:flex;
+gap:20px;
+font-size:28px;
+}
+
+.time span{
+font-size:50px;
+font-weight:bold;
+}
+
+.carousel{
+width:600px;
+height:320px;
 overflow:hidden;
-
+border-radius:20px;
+box-shadow:0 0 25px black;
 position:relative;
-
-margin-top:15px;
-
-box-shadow:0 20px 40px rgba(0,0,0,.7);
-
+z-index:5;
 }
 
-.slide{
-
-position:absolute;
-width:100%;
-height:100%;
-opacity:0;
-transition:opacity 1.5s;
-
-}
-
-.slide img{
+.carousel img{
 width:100%;
 height:100%;
 object-fit:cover;
+position:absolute;
+opacity:0;
+transition:opacity 1s;
 }
 
-.activo{
+.carousel img.active{
 opacity:1;
 }
 
-/* FRASE */
-
-.versiculo{
-
+.barra{
+width:600px;
+height:18px;
+background:#333;
+border-radius:10px;
 margin-top:10px;
-
-background:rgba(0,0,0,.4);
-
-padding:10px;
-
-border-radius:15px;
-
-width:60%;
-
-text-align:center;
-
-font-size:17px;
-
 }
 
-/* VIDEO */
+#progress{
+height:100%;
+background:linear-gradient(90deg,#00ffcc,#00ff66);
+width:0%;
+border-radius:10px;
+}
 
-.videoFull{
+#faltan{
+margin-top:5px;
+font-size:20px;
+}
 
+.biblia{
+font-size:22px;
+text-align:center;
+max-width:900px;
+text-shadow:0 0 15px black;
+}
+
+#videoContainer{
 position:fixed;
-top:0;
-left:0;
-
 width:100%;
 height:100%;
-
 background:black;
-
-display:flex;
-align-items:center;
+display:none;
 justify-content:center;
-
+align-items:center;
+z-index:50;
 opacity:0;
-pointer-events:none;
-
 transition:opacity 2s;
-
-z-index:10;
-
-}
-
-.videoFull.activo{
-
-opacity:1;
-pointer-events:auto;
-
 }
 
 video{
-
 width:100%;
 height:100%;
 object-fit:cover;
-
 }
 
 </style>
 </head>
 
+
 <body>
 
-<div id="tsparticles"></div>
+<div id="background"></div>
 
-<div class="titulo">
-47° Aniversario<br>
-Drogadictos Anónimos A.C.
+<div id="particles"></div>
+
+<div class="container">
+
+<h1 class="titulo">47 ANIVERSARIO LIBRE DE DROGAS</h1>
+
+<div class="saludo">
+<span id="saludo"></span> - <span id="hora"></span>
 </div>
 
-<div class="barra-contenedor">
-<div class="barra-progreso" id="barraProgreso">
-<span id="textoBarra"></span>
-</div>
-</div>
-
-<div id="saludo"></div>
-<div id="hora"></div>
-
-<div class="contenedor">
-
-<div class="caja">
-<div id="anios" class="numero"></div>
-<div>Años</div>
-</div>
-
-<div class="caja">
-<div id="meses" class="numero"></div>
-<div>Meses</div>
-</div>
-
-<div class="caja">
-<div id="dias" class="numero"></div>
-<div>Días</div>
-</div>
-
-<div class="caja">
-<div id="horas" class="numero"></div>
-<div>Horas</div>
-</div>
-
-<div class="caja">
-<div id="minutos" class="numero"></div>
-<div>Min</div>
-</div>
-
-<div class="caja">
-<div id="segundos" class="numero"></div>
-<div>Seg</div>
-</div>
-
-</div>
+<div class="contenido">
 
 <div class="clima">
 
-<h3>Mérida</h3>
+<h2>Mérida</h2>
 
-<i id="iconoClima" class="wi wi-day-sunny" style="font-size:42px"></i>
-
-<div id="temp" class="temp"></div>
-
+<div id="icono"></div>
+<div id="temp"></div>
 <div id="desc"></div>
 
+<canvas id="lluviaChart"></canvas>
+
 </div>
 
-<div class="carrusel" id="carrusel"></div>
 
-<div class="versiculo">
-📖 <span id="versiculo"></span>
+<div class="centro">
+
+<div class="contador">
+
+<div class="time">
+<span id="years"></span>
+<div>Años</div>
 </div>
 
-<div class="videoFull" id="videoDiv">
-<video id="videoEvento" muted>
-<source src="fotos/video.mp4" type="video/mp4">
+<div class="time">
+<span id="months"></span>
+<div>Meses</div>
+</div>
+
+<div class="time">
+<span id="days"></span>
+<div>Días</div>
+</div>
+
+<div class="time">
+<span id="hours"></span>
+<div>Horas</div>
+</div>
+
+<div class="time">
+<span id="minutes"></span>
+<div>Min</div>
+</div>
+
+</div>
+
+<div class="barra">
+<div id="progress"></div>
+</div>
+
+<div id="faltan"></div>
+
+<div class="carousel">
+
+<img src="fotos/1.jpg">
+<img src="fotos/2.jpg">
+<img src="fotos/3.jpg">
+<img src="fotos/4.jpg">
+<img src="fotos/5.jpg">
+<img src="fotos/6.jpg">
+<img src="fotos/7.jpg">
+<img src="fotos/8.jpg">
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="biblia">
+<span id="versiculo"></span>
+</div>
+
+</div>
+
+
+<div id="videoContainer">
+
+<video id="video" muted>
+<source src="fotos/video.mp4">
 </video>
+
 </div>
+
 
 <script>
 
-/* HORA Y SALUDO */
+/* RELOJ */
 
-function actualizarHora(){
+function reloj(){
 
-let ahora=new Date()
-let h=ahora.getHours()
+let now=new Date()
 
-let saludo="Buenas noches 🌙"
+let hora=now.getHours()
 
-if(h>=6 && h<12) saludo="Buenos días ☀️"
-if(h>=12 && h<19) saludo="Buenas tardes 🌇"
+let saludo="Buenas noches"
+
+if(hora<12)saludo="Buenos días"
+else if(hora<19)saludo="Buenas tardes"
 
 document.getElementById("saludo").innerText=saludo
-document.getElementById("hora").innerText=ahora.toLocaleTimeString()
-
-actualizarFondo(h)
+document.getElementById("hora").innerText=now.toLocaleTimeString()
 
 }
 
-setInterval(actualizarHora,1000)
+setInterval(reloj,1000)
 
-/* FONDO SEGUN HORA */
 
-function actualizarFondo(h){
-
-if(h>=6 && h<12){
-
-document.body.style.background="linear-gradient(120deg,#89f7fe,#66a6ff)"
-
-}
-
-else if(h>=12 && h<19){
-
-document.body.style.background="linear-gradient(120deg,#f6d365,#fda085)"
-
-}
-
-else{
-
-document.body.style.background="linear-gradient(120deg,#141e30,#243b55)"
-
-}
-
-}
 
 /* CONTADOR */
 
-const evento=new Date("2026-11-07T00:00:00")
+const evento=new Date("Nov 7, 2026 00:00:00")
 
-function actualizarContador(){
+function contador(){
 
-let ahora=new Date()
+let now=new Date()
 
-let anios=evento.getFullYear()-ahora.getFullYear()
-let meses=evento.getMonth()-ahora.getMonth()
-let dias=evento.getDate()-ahora.getDate()
+let diff=evento-now
 
-if(dias<0){
+let min=Math.floor(diff/1000/60)%60
+let hrs=Math.floor(diff/1000/60/60)%24
+let dias=Math.floor(diff/1000/60/60/24)
+let meses=Math.floor(dias/30)
+let años=Math.floor(meses/12)
 
-meses--
+meses=meses%12
+dias=dias%30
 
-dias+=new Date(ahora.getFullYear(),ahora.getMonth()+1,0).getDate()
+document.getElementById("years").innerText=años
+document.getElementById("months").innerText=meses
+document.getElementById("days").innerText=dias
+document.getElementById("hours").innerText=hrs
+document.getElementById("minutes").innerText=min
 
-}
+document.getElementById("faltan").innerText="Faltan "+Math.floor(diff/1000/60/60/24)+" días"
 
-if(meses<0){
+let progreso=100-(dias/365*100)
 
-anios--
-meses+=12
-
-}
-
-let diff=evento-ahora
-
-let horas=Math.floor(diff/1000/60/60)%24
-let minutos=Math.floor(diff/1000/60)%60
-let segundos=Math.floor(diff/1000)%60
-
-aniosTxt.innerText=anios
-mesesTxt.innerText=meses
-diasTxt.innerText=dias
-horasTxt.innerText=horas
-minutosTxt.innerText=minutos
-segundosTxt.innerText=segundos
-
-let diasRestantes=Math.floor(diff/(1000*60*60*24))
-
-let progreso=((365-diasRestantes)/365)*100
-
-barraProgreso.style.width=progreso+"%"
-textoBarra.innerText="Faltan "+diasRestantes+" días"
+document.getElementById("progress").style.width=progreso+"%"
 
 }
 
-setInterval(actualizarContador,1000)
+setInterval(contador,1000)
+
+
 
 /* CARRUSEL */
 
-const imagenes=[]
-for(let i=1;i<=8;i++){
-imagenes.push("fotos/foto"+i+".jpg")
-}
+const fotos=document.querySelectorAll(".carousel img")
 
-const carrusel=document.getElementById("carrusel")
+let i=0
 
-imagenes.forEach((img,i)=>{
+function carrusel(){
 
-let div=document.createElement("div")
-div.classList.add("slide")
+fotos.forEach(f=>f.classList.remove("active"))
 
-if(i==0) div.classList.add("activo")
+fotos[i].classList.add("active")
 
-div.innerHTML=`<img src="${img}">`
+i++
 
-carrusel.appendChild(div)
-
-})
-
-setInterval(()=>{
-
-let slides=document.querySelectorAll(".slide")
-let actual=document.querySelector(".activo")
-
-let i=[...slides].indexOf(actual)
-
-actual.classList.remove("activo")
-
-slides[(i+1)%slides.length].classList.add("activo")
-
-},5000)
-
-/* CLIMA */
-
-fetch("https://api.open-meteo.com/v1/forecast?latitude=20.97&longitude=-89.62&current_weather=true&hourly=precipitation_probability&timezone=auto")
-
-.then(r=>r.json())
-
-.then(data=>{
-
-temp.innerText=data.current_weather.temperature+"°C"
-
-let lluvia=data.hourly.precipitation_probability
-let horas=data.hourly.time
-
-let proxima="No cercana"
-
-for(let i=0;i<lluvia.length;i++){
-
-if(lluvia[i]>60){
-
-let h=new Date(horas[i]).getHours()
-
-proxima=h+":00"
-break
+if(i>=fotos.length)i=0
 
 }
 
-}
+setInterval(carrusel,4000)
 
-desc.innerText="Lluvia probable: "+proxima
+carrusel()
 
-})
 
-/* FRASES */
 
-const versiculos=[
+/* FRASES BIBLICAS */
 
+const versos=[
 "Todo lo puedo en aquel que me fortalece — Filipenses 4:13",
 "El Señor es mi pastor nada me faltará — Salmos 23:1",
 "Dios es nuestro refugio y fortaleza — Salmos 46:1",
@@ -620,54 +435,167 @@ const versiculos=[
 "El Señor me oye cuando le invoco — Salmos 4:3",
 "En paz me acostaré y asimismo dormiré — Salmos 4:8",
 "El Señor me hace vivir confiado — Salmos 4:8"
-
 ]
 
-let indice=Math.floor(Math.random()*versiculos.length)
+function verso(){
 
-versiculo.innerText=versiculos[indice]
+let v=versos[Math.floor(Math.random()*versos.length)]
+
+document.getElementById("versiculo").innerText=v
+
+}
+
+verso()
+
+
 
 /* VIDEO */
 
-const videoDiv=document.getElementById("videoDiv")
-const video=document.getElementById("videoEvento")
+function video(){
 
-function mostrarVideo(){
+let cont=document.getElementById("videoContainer")
+let vid=document.getElementById("video")
 
-videoDiv.classList.add("activo")
-video.currentTime=0
-video.play()
+cont.style.display="flex"
+
+setTimeout(()=>{cont.style.opacity=1},100)
+
+vid.play()
+
+setTimeout(()=>{
+
+cont.style.opacity=0
+
+setTimeout(()=>{
+cont.style.display="none"
+vid.pause()
+vid.currentTime=0
+},2000)
+
+},234000)
 
 }
 
-video.onended=function(){
+setInterval(video,300000)
 
-videoDiv.classList.remove("activo")
+
+
+/* CLIMA */
+
+fetch("https://api.openweathermap.org/data/2.5/forecast?q=Merida,mx&units=metric&appid=TU_API")
+
+.then(r=>r.json())
+
+.then(data=>{
+
+let clima=data.list[0]
+
+document.getElementById("temp").innerHTML=Math.round(clima.main.temp)+"°C"
+document.getElementById("desc").innerHTML=clima.weather[0].description
+
+let lluvia=[]
+let horas=[]
+
+for(let i=0;i<8;i++){
+
+horas.push(data.list[i].dt_txt.split(" ")[1].substring(0,5))
+
+lluvia.push((data.list[i].pop||0)*100)
 
 }
 
-setInterval(()=>{
-
-if(video.paused){
-mostrarVideo()
+new Chart(document.getElementById("lluviaChart"),{
+type:"line",
+data:{
+labels:horas,
+datasets:[{label:"Lluvia %",data:lluvia}]
 }
-
-},300000)
-
-/* PARTICULAS */
-
-tsParticles.load("tsparticles",{
-
-particles:{
-number:{value:80},
-color:{value:"#ffffff"},
-size:{value:{min:1,max:3}},
-move:{enable:true,speed:.6}
-}
+})
 
 })
 
+
+
+/* FONDO SEGUN HORA */
+
+function fondo(){
+
+let hora=new Date().getHours()
+
+let bg=document.getElementById("background")
+
+if(hora<12)
+
+bg.style.background="linear-gradient(#ffd89b,#19547b)"
+
+else if(hora<19)
+
+bg.style.background="linear-gradient(#ff9966,#ff5e62)"
+
+else
+
+bg.style.background="linear-gradient(#141E30,#243B55)"
+
+}
+
+fondo()
+
+
+
+/* PARTICULAS */
+
+const canvas=document.createElement("canvas")
+
+document.getElementById("particles").appendChild(canvas)
+
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let parts=[]
+
+for(let i=0;i<80;i++){
+
+parts.push({
+
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*3,
+vx:Math.random()*0.5,
+vy:Math.random()*0.5
+
+})
+
+}
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+parts.forEach(p=>{
+
+ctx.beginPath()
+
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+
+ctx.fillStyle="rgba(255,255,255,0.3)"
+
+ctx.fill()
+
+p.x+=p.vx
+p.y+=p.vy
+
+})
+
+requestAnimationFrame(draw)
+
+}
+
+draw()
+
 </script>
+
 
 </body>
 </html>
