@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>47 Aniversario</title>
 
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<title>47 Aniversario</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
@@ -14,10 +15,8 @@
 
 <style>
 
-html,body{
+body{
 margin:0;
-padding:0;
-height:100%;
 font-family:Arial;
 color:white;
 overflow:hidden;
@@ -27,24 +26,24 @@ overflow:hidden;
 position:fixed;
 width:100%;
 height:100%;
-z-index:-2;
+z-index:-3;
 }
 
 #particles-js{
 position:fixed;
 width:100%;
 height:100%;
-z-index:-1;
+z-index:-2;
 pointer-events:none;
 }
 
 .container{
 display:grid;
-grid-template-columns:320px 1fr 320px;
+grid-template-columns:300px 1fr 300px;
 height:100vh;
 align-items:center;
-padding:10px;
-gap:10px;
+padding:15px;
+gap:15px;
 }
 
 .panel{
@@ -54,74 +53,152 @@ border-radius:15px;
 padding:15px;
 }
 
-h1{
+.center{
 text-align:center;
-font-size:40px;
-margin:0;
-text-shadow:0 0 20px rgba(0,0,0,0.7);
+}
+
+.title{
+font-size:42px;
+margin-bottom:5px;
+text-shadow:0 0 15px black;
 }
 
 .clock{
-text-align:center;
 font-size:28px;
-margin-top:5px;
 }
 
 .greeting{
-text-align:center;
 font-size:22px;
 margin-bottom:10px;
 animation:pulse 2s infinite;
 }
 
 @keyframes pulse{
-0%{opacity:0.6}
+0%{opacity:0.5}
 50%{opacity:1}
-100%{opacity:0.6}
+100%{opacity:0.5}
+}
+
+/* CONTADOR */
+
+.countdown-card{
+
+background: rgba(0,0,0,0.55);
+backdrop-filter: blur(12px);
+border-radius:18px;
+
+padding:20px;
+margin:15px auto;
+
+width:650px;
+
+box-shadow:0 0 25px rgba(0,0,0,0.6);
+
 }
 
 .counter{
-font-size:26px;
-text-align:center;
-margin:10px 0;
+
+display:flex;
+justify-content:center;
+gap:14px;
+margin-bottom:12px;
+
 }
 
-.progress{
-height:15px;
-background:#333;
+.box{
+
+background:rgba(0,0,0,0.65);
+border-radius:12px;
+
+padding:15px;
+
+width:90px;
+text-align:center;
+
+box-shadow:0 0 10px rgba(0,0,0,0.5);
+
+}
+
+.box .num{
+
+font-size:28px;
+font-weight:bold;
+
+}
+
+.box label{
+
+font-size:14px;
+opacity:0.8;
+
+}
+
+.progressText{
+
+font-size:18px;
+margin-bottom:6px;
+
+}
+
+.progressBar{
+
+width:100%;
+height:16px;
+
+background:#222;
+
 border-radius:20px;
 overflow:hidden;
-margin-top:5px;
+
 }
 
-.progress-bar{
+.progressFill{
+
 height:100%;
-background:linear-gradient(90deg,#ffcc00,#ff6600);
+
 width:0%;
+
+background:linear-gradient(90deg,#FFD54F,#FF9800);
+
+transition:width 0.6s;
+
 }
+
+/* CARRUSEL */
 
 .swiper{
-width:100%;
-max-width:700px;
-height:380px;
-border-radius:15px;
+width:650px;
+height:360px;
+border-radius:12px;
 overflow:hidden;
-box-shadow:0 0 20px rgba(0,0,0,0.6);
+box-shadow:0 0 20px black;
 }
 
-.swiper-slide img{
+.swiper img{
 width:100%;
 height:100%;
 object-fit:cover;
 }
 
+/* CLIMA */
+
 .weather{
-text-align:center;
 font-size:18px;
+text-align:center;
 }
 
+/* AVISOS */
+
+.notice{
+margin-bottom:10px;
+border-bottom:1px solid rgba(255,255,255,0.3);
+padding-bottom:6px;
+}
+
+/* FRASE BIBLICA */
+
 .bible{
-position:absolute;
+position:fixed;
 bottom:0;
 width:100%;
 background:rgba(0,0,0,0.6);
@@ -132,13 +209,15 @@ overflow:hidden;
 .bible span{
 display:inline-block;
 padding-left:100%;
-animation:scroll 25s linear infinite;
+animation:scroll 30s linear infinite;
 }
 
 @keyframes scroll{
 0%{transform:translateX(0)}
 100%{transform:translateX(-100%)}
 }
+
+/* VIDEO */
 
 #videoOverlay{
 position:fixed;
@@ -159,13 +238,6 @@ height:100%;
 object-fit:cover;
 }
 
-.notice{
-font-size:18px;
-margin-bottom:10px;
-border-bottom:1px solid rgba(255,255,255,0.3);
-padding-bottom:6px;
-}
-
 </style>
 </head>
 
@@ -176,48 +248,88 @@ padding-bottom:6px;
 
 <div class="container">
 
-<div class="panel">
+<!-- CLIMA -->
 
-<div class="weather">
+<div class="panel weather">
+
 <h2>Clima</h2>
+
 <div id="temp"></div>
 <div id="desc"></div>
 <div id="rain"></div>
-</div>
 
 </div>
 
-<div>
+<!-- CENTRO -->
 
-<h1>47° Aniversario</h1>
+<div class="center">
+
+<div class="title">47° Aniversario</div>
 
 <div class="clock" id="clock"></div>
 <div class="greeting" id="greeting"></div>
 
-<div class="counter" id="countdown"></div>
+<div class="countdown-card">
 
-<div class="progress">
-<div class="progress-bar" id="progress"></div>
+<div class="counter">
+
+<div class="box">
+<div class="num" id="years"></div>
+<label>Años</label>
+</div>
+
+<div class="box">
+<div class="num" id="months"></div>
+<label>Meses</label>
+</div>
+
+<div class="box">
+<div class="num" id="days"></div>
+<label>Días</label>
+</div>
+
+<div class="box">
+<div class="num" id="hours"></div>
+<label>Horas</label>
+</div>
+
+<div class="box">
+<div class="num" id="minutes"></div>
+<label>Min</label>
+</div>
+
+</div>
+
+<div class="progressText" id="faltan"></div>
+
+<div class="progressBar">
+<div class="progressFill" id="progress"></div>
+</div>
+
 </div>
 
 <br>
 
 <div class="swiper">
+
 <div class="swiper-wrapper">
 
-<div class="swiper-slide"><img src="fotos/foto1.jpg"></div>
-<div class="swiper-slide"><img src="fotos/foto2.jpg"></div>
-<div class="swiper-slide"><img src="fotos/foto3.jpg"></div>
-<div class="swiper-slide"><img src="fotos/foto4.jpg"></div>
-<div class="swiper-slide"><img src="fotos/foto5.jpg"></div>
-<div class="swiper-slide"><img src="fotos/foto6.jpg"></div>
-<div class="swiper-slide"><img src="fotos/foto7.jpg"></div>
-<div class="swiper-slide"><img src="fotos/foto8.jpg"></div>
+<div class="swiper-slide"><img src="fotos/1.jpg"></div>
+<div class="swiper-slide"><img src="fotos/2.jpg"></div>
+<div class="swiper-slide"><img src="fotos/3.jpg"></div>
+<div class="swiper-slide"><img src="fotos/4.jpg"></div>
+<div class="swiper-slide"><img src="fotos/5.jpg"></div>
+<div class="swiper-slide"><img src="fotos/6.jpg"></div>
+<div class="swiper-slide"><img src="fotos/7.jpg"></div>
+<div class="swiper-slide"><img src="fotos/8.jpg"></div>
 
 </div>
+
 </div>
 
 </div>
+
+<!-- AVISOS -->
 
 <div class="panel">
 
@@ -241,169 +353,154 @@ padding-bottom:6px;
 
 <script>
 
+/* CARRUSEL */
+
 new Swiper('.swiper',{
 loop:true,
 autoplay:{delay:3000}
-});
+})
+
+/* RELOJ */
 
 function updateClock(){
 
-let now=new Date();
+let now=new Date()
 
-let h=now.getHours();
-let m=now.getMinutes().toString().padStart(2,"0");
+let h=now.getHours()
+let m=now.getMinutes().toString().padStart(2,"0")
 
-document.getElementById("clock").innerText=h+":"+m;
+document.getElementById("clock").innerText=h+":"+m
 
-let greeting="Buenas noches";
+let greet="Buenas noches"
 
-if(h<12) greeting="Buenos días";
-else if(h<19) greeting="Buenas tardes";
+if(h<12) greet="Buenos días"
+else if(h<19) greet="Buenas tardes"
 
-document.getElementById("greeting").innerText=greeting;
-
-}
-
-setInterval(updateClock,1000);
-updateClock();
-
-let target=new Date("2026-11-07T00:00:00");
-
-function updateCountdown(){
-
-let now=new Date();
-
-let diff=target-now;
-
-let days=Math.floor(diff/1000/60/60/24);
-
-let years=Math.floor(days/365);
-let months=Math.floor((days%365)/30);
-let d=(days%365)%30;
-
-let hours=Math.floor(diff/1000/60/60)%24;
-let mins=Math.floor(diff/1000/60)%60;
-
-document.getElementById("countdown").innerText=
-years+" años "+months+" meses "+d+" días "+hours+"h "+mins+"m";
-
-let total=(target-new Date("2025-11-07"))/86400000;
-
-let percent=(1-(days/total))*100;
-
-document.getElementById("progress").style.width=percent+"%";
+document.getElementById("greeting").innerText=greet
 
 }
 
-setInterval(updateCountdown,60000);
-updateCountdown();
+setInterval(updateClock,1000)
+updateClock()
 
-let verses=[
-"Todo lo puedo en aquel que me fortalece. Filipenses 4:13",
-"El Señor es mi pastor; nada me faltará. Salmo 23:1",
-"Confía en el Señor con todo tu corazón. Proverbios 3:5",
-"Porque donde están dos o tres reunidos en mi nombre, allí estoy yo. Mateo 18:20"
-];
+/* CONTADOR */
 
-document.getElementById("verse").innerText=
-verses[Math.floor(Math.random()*verses.length)];
+let target=new Date("2026-11-07T00:00:00")
 
-async function getWeather(){
+function countdown(){
 
-let key="1db39afe6a8f78e9555d668c8852b1fb";
+let now=new Date()
 
-let url=`https://api.openweathermap.org/data/2.5/weather?q=Merida,mx&units=metric&lang=es&appid=${key}`;
+let diff=target-now
 
-let data=await fetch(url).then(r=>r.json());
+let totalDays=Math.floor(diff/1000/60/60/24)
 
-document.getElementById("temp").innerText=data.main.temp+"°C";
-document.getElementById("desc").innerText=data.weather[0].description;
+let years=Math.floor(totalDays/365)
+let months=Math.floor((totalDays%365)/30)
+let days=(totalDays%365)%30
 
-let forecast=await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Merida,mx&appid=${key}&units=metric&lang=es`).then(r=>r.json());
+let hours=Math.floor(diff/1000/60/60)%24
+let minutes=Math.floor(diff/1000/60)%60
 
-let rainHour="";
+document.getElementById("years").innerText=years
+document.getElementById("months").innerText=months
+document.getElementById("days").innerText=days
+document.getElementById("hours").innerText=hours
+document.getElementById("minutes").innerText=minutes
 
-forecast.list.forEach(f=>{
-if(f.weather[0].main==="Rain" && rainHour===""){
-rainHour=f.dt_txt.split(" ")[1];
+document.getElementById("faltan").innerText="Faltan "+totalDays+" días"
+
+let total=(target-new Date("2025-11-07"))/86400000
+
+let percent=(1-(totalDays/total))*100
+
+document.getElementById("progress").style.width=percent+"%"
+
 }
-});
 
-document.getElementById("rain").innerText=
-rainHour? "Probable lluvia: "+rainHour:"Sin lluvia cercana";
+setInterval(countdown,60000)
+countdown()
 
+/* PARTICULAS */
+
+particlesJS("particles-js",{
+particles:{
+number:{value:60},
+size:{value:3},
+move:{speed:2}
 }
+})
 
-getWeather();
-setInterval(getWeather,600000);
+/* FONDO */
 
 VANTA.WAVES({
 el:"#vanta-bg",
 color:0x1c3c6e,
-shininess:40,
-waveHeight:20,
-waveSpeed:0.8
-});
+waveHeight:18,
+waveSpeed:0.7
+})
 
-particlesJS("particles-js",{
-particles:{
-number:{value:50},
-color:{value:"#ffffff"},
-size:{value:3},
-move:{speed:2}
-}
-});
+/* FRASE BIBLICA */
 
-async function cargarAvisos(){
+let verses=[
+"Todo lo puedo en aquel que me fortalece. Filipenses 4:13",
+"El Señor es mi pastor; nada me faltará. Salmo 23:1",
+"Confía en el Señor con todo tu corazón. Proverbios 3:5"
+]
 
-let url="https://docs.google.com/spreadsheets/d/e/2PACX-1vQAwFHzlnoaHhvSuA5P8F9alWHymsSo870bkagSe0AxvejhnoHMkYFudw4FHBpFYmOwSI_aRl2OGLWX/pub?gid=0&single=true&output=csv";
+document.getElementById("verse").innerText=
+verses[Math.floor(Math.random()*verses.length)]
 
-let text=await fetch(url).then(r=>r.text());
+/* AVISOS GOOGLE SHEETS */
 
-let lines=text.split("\n");
+async function avisos(){
 
-let html="";
+let url="https://docs.google.com/spreadsheets/d/e/2PACX-1vQAwFHzlnoaHhvSuA5P8F9alWHymsSo870bkagSe0AxvejhnoHMkYFudw4FHBpFYmOwSI_aRl2OGLWX/pub?gid=0&single=true&output=csv"
+
+let text=await fetch(url).then(r=>r.text())
+
+let lines=text.split("\n")
+
+let html=""
 
 lines.forEach(l=>{
-if(l.trim()!=""){
-html+=`<div class="notice">${l}</div>`;
-}
-});
+if(l.trim()!="") html+=`<div class="notice">${l}</div>`
+})
 
-document.getElementById("avisos").innerHTML=html;
+document.getElementById("avisos").innerHTML=html
 
 }
 
-cargarAvisos();
-setInterval(cargarAvisos,30000);
+avisos()
+setInterval(avisos,30000)
 
-let video=document.getElementById("videoPlayer");
-let overlay=document.getElementById("videoOverlay");
+/* VIDEO CADA 5 MIN */
+
+let video=document.getElementById("videoPlayer")
+let overlay=document.getElementById("videoOverlay")
 
 setInterval(()=>{
 
-overlay.style.display="flex";
-overlay.style.opacity=0;
+overlay.style.display="flex"
+overlay.style.opacity=0
 
 let fade=setInterval(()=>{
 
-overlay.style.opacity=parseFloat(overlay.style.opacity)+0.05;
+overlay.style.opacity=parseFloat(overlay.style.opacity)+0.05
 
-if(overlay.style.opacity>=1) clearInterval(fade);
+if(overlay.style.opacity>=1) clearInterval(fade)
 
-},50);
+},50)
 
-video.play();
+video.play()
 
 video.onended=()=>{
-overlay.style.display="none";
-};
+overlay.style.display="none"
+}
 
-},300000);
+},300000)
 
 </script>
 
 </body>
 </html>
-
-
