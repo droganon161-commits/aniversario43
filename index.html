@@ -2,38 +2,26 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<title>47 Aniversario</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>47° Aniversario Drogadictos Anónimos</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
 
 <style>
 
-*{
+html,body{
 margin:0;
 padding:0;
-box-sizing:border-box;
-font-family:Segoe UI;
-}
-
-body{
-height:100vh;
-width:100vw;
-overflow:hidden;
+height:100%;
+font-family:Arial;
 color:white;
-display:flex;
-flex-direction:column;
-justify-content:space-evenly;
-align-items:center;
+overflow:hidden;
 }
-
-/* VANTA BACKGROUND */
 
 #vanta-bg{
 position:fixed;
@@ -42,155 +30,109 @@ height:100%;
 z-index:-2;
 }
 
-/* PARTICULAS */
-
-#tsparticles{
+#particles-js{
 position:fixed;
 width:100%;
 height:100%;
 z-index:-1;
+pointer-events:none;
 }
 
-/* TITULO */
-
-.titulo{
-font-size:42px;
-text-align:center;
-background:linear-gradient(90deg,#FFD700,#fff4b0,#FFD700);
-background-size:200%;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-animation:brillo 6s linear infinite;
-}
-
-@keyframes brillo{
-0%{background-position:0%}
-100%{background-position:200%}
-}
-
-/* BARRA */
-
-.barra-contenedor{
-width:70%;
-height:30px;
-background:rgba(255,255,255,.25);
-border-radius:30px;
-overflow:hidden;
-}
-
-.barra-progreso{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#ffd000,#ffae00,#ffd000);
-display:flex;
+.container{
+display:grid;
+grid-template-columns:320px 1fr 320px;
+height:100vh;
 align-items:center;
-justify-content:center;
-color:black;
-font-weight:bold;
+padding:10px;
+gap:10px;
 }
 
-/* SALUDO */
-
-#saludo{
-font-size:24px;
-animation:fade 3s infinite alternate;
-}
-
-@keyframes fade{
-from{opacity:.5}
-to{opacity:1}
-}
-
-#hora{
-font-size:20px;
-opacity:.85;
-}
-
-/* CONTADOR */
-
-.contenedor{
-display:flex;
-gap:14px;
-}
-
-.caja{
-background:rgba(20,30,60,.9);
-padding:18px;
-border-radius:16px;
-min-width:110px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,.6);
-}
-
-.numero{
-font-size:42px;
-font-weight:bold;
-color:#FFD700;
-}
-
-/* CLIMA */
-
-.clima{
-position:absolute;
-left:30px;
-top:210px;
-width:240px;
-background:linear-gradient(180deg,#2193b0,#6dd5ed);
-border-radius:18px;
+.panel{
+background:rgba(0,0,0,0.45);
+backdrop-filter:blur(10px);
+border-radius:15px;
 padding:15px;
-box-shadow:0 15px 35px rgba(0,0,0,.6);
 }
 
-.temp{
-font-size:42px;
+h1{
+text-align:center;
+font-size:40px;
+margin:0;
+text-shadow:0 0 20px rgba(0,0,0,0.7);
 }
 
-/* CARRUSEL */
+.clock{
+text-align:center;
+font-size:28px;
+margin-top:5px;
+}
 
-.carrusel{
-width:65%;
-height:32vh;
-min-height:260px;
+.greeting{
+text-align:center;
+font-size:22px;
+margin-bottom:10px;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{opacity:0.6}
+50%{opacity:1}
+100%{opacity:0.6}
+}
+
+.counter{
+font-size:26px;
+text-align:center;
+margin:10px 0;
+}
+
+.progress{
+height:15px;
+background:#333;
 border-radius:20px;
 overflow:hidden;
-position:relative;
-box-shadow:0 20px 40px rgba(0,0,0,.7);
+margin-top:5px;
 }
 
-.slide{
-position:absolute;
-width:100%;
+.progress-bar{
 height:100%;
-opacity:0;
-transition:opacity 1.5s;
+background:linear-gradient(90deg,#ffcc00,#ff6600);
+width:0%;
 }
 
-.slide img{
+.swiper{
+width:100%;
+max-width:700px;
+height:380px;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 0 20px rgba(0,0,0,0.6);
+}
+
+.swiper-slide img{
 width:100%;
 height:100%;
 object-fit:cover;
 }
 
-.activo{
-opacity:1;
+.weather{
+text-align:center;
+font-size:18px;
 }
 
-/* VERSICULO */
-
-.versiculo{
-width:65%;
-overflow:hidden;
-background:rgba(0,0,0,.55);
-border-radius:15px;
-padding:12px 0;
-}
-
-.scroll{
+.bible{
+position:absolute;
+bottom:0;
+width:100%;
+background:rgba(0,0,0,0.6);
 white-space:nowrap;
+overflow:hidden;
+}
+
+.bible span{
 display:inline-block;
 padding-left:100%;
-animation:scroll 28s linear infinite;
-font-size:20px;
+animation:scroll 25s linear infinite;
 }
 
 @keyframes scroll{
@@ -198,33 +140,30 @@ font-size:20px;
 100%{transform:translateX(-100%)}
 }
 
-/* VIDEO */
-
-.videoFull{
+#videoOverlay{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
 background:black;
-display:flex;
+display:none;
 align-items:center;
 justify-content:center;
-opacity:0;
-pointer-events:none;
-transition:opacity 2s;
 z-index:10;
 }
 
-.videoFull.activo{
-opacity:1;
-pointer-events:auto;
-}
-
-video{
+#videoOverlay video{
 width:100%;
 height:100%;
 object-fit:cover;
+}
+
+.notice{
+font-size:18px;
+margin-bottom:10px;
+border-bottom:1px solid rgba(255,255,255,0.3);
+padding-bottom:6px;
 }
 
 </style>
@@ -233,206 +172,234 @@ object-fit:cover;
 <body>
 
 <div id="vanta-bg"></div>
-<div id="tsparticles"></div>
+<div id="particles-js"></div>
 
-<div class="titulo">
-47° Aniversario<br>
-Drogadictos Anónimos A.C.
-</div>
+<div class="container">
 
-<div class="barra-contenedor">
-<div class="barra-progreso" id="barraProgreso">
-<span id="textoBarra"></span>
-</div>
-</div>
+<div class="panel">
 
-<div id="saludo"></div>
-<div id="hora"></div>
-
-<div class="contenedor">
-
-<div class="caja"><div id="anios" class="numero"></div>Años</div>
-<div class="caja"><div id="meses" class="numero"></div>Meses</div>
-<div class="caja"><div id="dias" class="numero"></div>Días</div>
-<div class="caja"><div id="horas" class="numero"></div>Horas</div>
-<div class="caja"><div id="minutos" class="numero"></div>Min</div>
-<div class="caja"><div id="segundos" class="numero"></div>Seg</div>
-
-</div>
-
-<div class="clima">
-<h3>Mérida</h3>
-<i class="wi wi-day-sunny" style="font-size:40px"></i>
-<div id="temp" class="temp"></div>
+<div class="weather">
+<h2>Clima</h2>
+<div id="temp"></div>
 <div id="desc"></div>
+<div id="rain"></div>
 </div>
 
-<div class="carrusel" id="carrusel"></div>
-
-<div class="versiculo">
-<div class="scroll" id="versiculo"></div>
 </div>
 
-<div class="videoFull" id="videoDiv">
-<video id="videoEvento" muted>
-<source src="fotos/video.mp4" type="video/mp4">
-</video>
+<div>
+
+<h1>47° Aniversario</h1>
+
+<div class="clock" id="clock"></div>
+<div class="greeting" id="greeting"></div>
+
+<div class="counter" id="countdown"></div>
+
+<div class="progress">
+<div class="progress-bar" id="progress"></div>
 </div>
+
+<br>
+
+<div class="swiper">
+<div class="swiper-wrapper">
+
+<div class="swiper-slide"><img src="fotos/1.jpg"></div>
+<div class="swiper-slide"><img src="fotos/2.jpg"></div>
+<div class="swiper-slide"><img src="fotos/3.jpg"></div>
+<div class="swiper-slide"><img src="fotos/4.jpg"></div>
+<div class="swiper-slide"><img src="fotos/5.jpg"></div>
+<div class="swiper-slide"><img src="fotos/6.jpg"></div>
+<div class="swiper-slide"><img src="fotos/7.jpg"></div>
+<div class="swiper-slide"><img src="fotos/8.jpg"></div>
+
+</div>
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>Avisos</h2>
+
+<div id="avisos"></div>
+
+</div>
+
+</div>
+
+<div class="bible">
+<span id="verse"></span>
+</div>
+
+<div id="videoOverlay">
+<video id="videoPlayer" src="fotos/video.mp4"></video>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
 
-/* VANTA BACKGROUND */
+new Swiper('.swiper',{
+loop:true,
+autoplay:{delay:3000}
+});
+
+function updateClock(){
+
+let now=new Date();
+
+let h=now.getHours();
+let m=now.getMinutes().toString().padStart(2,"0");
+
+document.getElementById("clock").innerText=h+":"+m;
+
+let greeting="Buenas noches";
+
+if(h<12) greeting="Buenos días";
+else if(h<19) greeting="Buenas tardes";
+
+document.getElementById("greeting").innerText=greeting;
+
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+let target=new Date("2026-11-07T00:00:00");
+
+function updateCountdown(){
+
+let now=new Date();
+
+let diff=target-now;
+
+let days=Math.floor(diff/1000/60/60/24);
+
+let years=Math.floor(days/365);
+let months=Math.floor((days%365)/30);
+let d=(days%365)%30;
+
+let hours=Math.floor(diff/1000/60/60)%24;
+let mins=Math.floor(diff/1000/60)%60;
+
+document.getElementById("countdown").innerText=
+years+" años "+months+" meses "+d+" días "+hours+"h "+mins+"m";
+
+let total=(target-new Date("2025-11-07"))/86400000;
+
+let percent=(1-(days/total))*100;
+
+document.getElementById("progress").style.width=percent+"%";
+
+}
+
+setInterval(updateCountdown,60000);
+updateCountdown();
+
+let verses=[
+"Todo lo puedo en aquel que me fortalece. Filipenses 4:13",
+"El Señor es mi pastor; nada me faltará. Salmo 23:1",
+"Confía en el Señor con todo tu corazón. Proverbios 3:5",
+"Porque donde están dos o tres reunidos en mi nombre, allí estoy yo. Mateo 18:20"
+];
+
+document.getElementById("verse").innerText=
+verses[Math.floor(Math.random()*verses.length)];
+
+async function getWeather(){
+
+let key="TU_API_KEY";
+
+let url=`https://api.openweathermap.org/data/2.5/weather?q=Merida,mx&units=metric&lang=es&appid=${key}`;
+
+let data=await fetch(url).then(r=>r.json());
+
+document.getElementById("temp").innerText=data.main.temp+"°C";
+document.getElementById("desc").innerText=data.weather[0].description;
+
+let forecast=await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Merida,mx&appid=${key}&units=metric&lang=es`).then(r=>r.json());
+
+let rainHour="";
+
+forecast.list.forEach(f=>{
+if(f.weather[0].main==="Rain" && rainHour===""){
+rainHour=f.dt_txt.split(" ")[1];
+}
+});
+
+document.getElementById("rain").innerText=
+rainHour? "Probable lluvia: "+rainHour:"Sin lluvia cercana";
+
+}
+
+getWeather();
+setInterval(getWeather,600000);
 
 VANTA.WAVES({
 el:"#vanta-bg",
-color:0x1f3c88,
-shininess:35,
+color:0x1c3c6e,
+shininess:40,
 waveHeight:20,
-waveSpeed:1,
-zoom:1
-})
+waveSpeed:0.8
+});
 
-/* SALUDO Y HORA */
-
-function actualizarHora(){
-
-let ahora=new Date()
-let h=ahora.getHours()
-
-let saludo="Buenas noches 🌙"
-
-if(h>=6 && h<12) saludo="Buenos días ☀️"
-if(h>=12 && h<19) saludo="Buenas tardes 🌇"
-
-document.getElementById("saludo").innerText=saludo
-document.getElementById("hora").innerText=ahora.toLocaleTimeString()
-
-}
-
-setInterval(actualizarHora,1000)
-
-/* CONTADOR */
-
-const evento=new Date("2026-11-07T00:00:00")
-
-function actualizarContador(){
-
-let ahora=new Date()
-let diff=evento-ahora
-
-let diasRestantes=Math.floor(diff/(1000*60*60*24))
-
-let anios=evento.getFullYear()-ahora.getFullYear()
-let meses=evento.getMonth()-ahora.getMonth()
-let dias=evento.getDate()-ahora.getDate()
-
-if(dias<0){meses--;dias+=30}
-if(meses<0){anios--;meses+=12}
-
-let horas=Math.floor(diff/1000/60/60)%24
-let minutos=Math.floor(diff/1000/60)%60
-let segundos=Math.floor(diff/1000)%60
-
-document.getElementById("anios").innerText=anios
-document.getElementById("meses").innerText=meses
-document.getElementById("dias").innerText=dias
-document.getElementById("horas").innerText=horas
-document.getElementById("minutos").innerText=minutos
-document.getElementById("segundos").innerText=segundos
-
-let progreso=((365-diasRestantes)/365)*100
-
-document.getElementById("barraProgreso").style.width=progreso+"%"
-document.getElementById("textoBarra").innerText="Faltan "+diasRestantes+" días"
-
-}
-
-setInterval(actualizarContador,1000)
-
-/* CARRUSEL */
-
-const imagenes=[]
-for(let i=1;i<=8;i++){imagenes.push("fotos/foto"+i+".jpg")}
-
-const carrusel=document.getElementById("carrusel")
-
-imagenes.forEach((img,i)=>{
-
-let div=document.createElement("div")
-div.classList.add("slide")
-
-if(i==0) div.classList.add("activo")
-
-div.innerHTML=`<img src="${img}">`
-carrusel.appendChild(div)
-
-})
-
-setInterval(()=>{
-
-let slides=document.querySelectorAll(".slide")
-let actual=document.querySelector(".activo")
-
-let i=[...slides].indexOf(actual)
-
-actual.classList.remove("activo")
-slides[(i+1)%slides.length].classList.add("activo")
-
-},5000)
-
-/* CLIMA */
-
-fetch("https://api.open-meteo.com/v1/forecast?latitude=20.97&longitude=-89.62&hourly=precipitation_probability&current_weather=true&timezone=auto")
-.then(r=>r.json())
-.then(data=>{
-
-document.getElementById("temp").innerText=data.current_weather.temperature+"°C"
-
-})
-
-/* FRASES */
-
-const versiculos=[
-"Todo lo puedo en aquel que me fortalece — Filipenses 4:13",
-"El Señor es mi pastor nada me faltará — Salmos 23:1",
-"Dios es nuestro refugio y fortaleza — Salmos 46:1",
-"Busquen primero el reino de Dios — Mateo 6:33",
-"La paz os dejo mi paz os doy — Juan 14:27",
-"Confía en el Señor con todo tu corazón — Proverbios 3:5"
-]
-
-document.getElementById("versiculo").innerText=
-versiculos[Math.floor(Math.random()*versiculos.length)]
-
-/* VIDEO */
-
-const videoDiv=document.getElementById("videoDiv")
-const video=document.getElementById("videoEvento")
-
-function mostrarVideo(){
-videoDiv.classList.add("activo")
-video.currentTime=0
-video.play()
-}
-
-video.onended=function(){
-videoDiv.classList.remove("activo")
-}
-
-setInterval(()=>{
-if(video.paused) mostrarVideo()
-},300000)
-
-/* PARTICULAS */
-
-tsParticles.load("tsparticles",{
+particlesJS("particles-js",{
 particles:{
-number:{value:120},
-color:{value:["#ffd000","#ffffff","#ffae00"]},
-size:{value:{min:1,max:4}},
-move:{enable:true,speed:1}
+number:{value:50},
+color:{value:"#ffffff"},
+size:{value:3},
+move:{speed:2}
 }
-})
+});
+
+async function cargarAvisos(){
+
+let url="https://docs.google.com/spreadsheets/d/e/2PACX-1vQAwFHzlnoaHhvSuA5P8F9alWHymsSo870bkagSe0AxvejhnoHMkYFudw4FHBpFYmOwSI_aRl2OGLWX/pub?gid=0&single=true&output=csv";
+
+let text=await fetch(url).then(r=>r.text());
+
+let lines=text.split("\n");
+
+let html="";
+
+lines.forEach(l=>{
+if(l.trim()!=""){
+html+=`<div class="notice">${l}</div>`;
+}
+});
+
+document.getElementById("avisos").innerHTML=html;
+
+}
+
+cargarAvisos();
+setInterval(cargarAvisos,30000);
+
+let video=document.getElementById("videoPlayer");
+let overlay=document.getElementById("videoOverlay");
+
+setInterval(()=>{
+
+overlay.style.display="flex";
+overlay.style.opacity=0;
+
+let fade=setInterval(()=>{
+
+overlay.style.opacity=parseFloat(overlay.style.opacity)+0.05;
+
+if(overlay.style.opacity>=1) clearInterval(fade);
+
+},50);
+
+video.play();
+
+video.onended=()=>{
+overlay.style.display="none";
+};
+
+},300000);
 
 </script>
 
