@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>47° Aniversario Drogadictos Anónimos</title>
+
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
 
@@ -18,10 +19,12 @@ font-family:Segoe UI;
 
 body{
 height:100vh;
+width:100vw;
 overflow:hidden;
 color:white;
 display:flex;
 flex-direction:column;
+justify-content:space-evenly;
 align-items:center;
 background:linear-gradient(180deg,#1f3c88,#0f1f4d);
 }
@@ -38,8 +41,7 @@ z-index:-1;
 /* TITULO */
 
 .titulo{
-font-size:40px;
-margin-top:10px;
+font-size:42px;
 text-align:center;
 background:linear-gradient(90deg,#FFD700,#fff4b0,#FFD700);
 background-size:200%;
@@ -61,7 +63,6 @@ height:30px;
 background:rgba(255,255,255,.25);
 border-radius:30px;
 overflow:hidden;
-margin:10px;
 }
 
 .barra-progreso{
@@ -78,7 +79,7 @@ font-weight:bold;
 /* SALUDO */
 
 #saludo{
-font-size:22px;
+font-size:24px;
 animation:fade 3s infinite alternate;
 }
 
@@ -88,29 +89,28 @@ to{opacity:1}
 }
 
 #hora{
-font-size:18px;
-opacity:.8;
+font-size:20px;
+opacity:.85;
 }
 
 /* CONTADOR */
 
 .contenedor{
 display:flex;
-gap:12px;
-margin-top:10px;
+gap:14px;
 }
 
 .caja{
 background:rgba(20,30,60,.95);
-padding:15px;
+padding:18px;
 border-radius:16px;
-min-width:90px;
+min-width:110px;
 text-align:center;
 box-shadow:0 10px 30px rgba(0,0,0,.6);
 }
 
 .numero{
-font-size:34px;
+font-size:42px;
 font-weight:bold;
 color:#FFD700;
 }
@@ -119,9 +119,9 @@ color:#FFD700;
 
 .clima{
 position:absolute;
-left:20px;
-top:230px;
-width:220px;
+left:25px;
+top:200px;
+width:230px;
 background:linear-gradient(180deg,#2193b0,#6dd5ed);
 border-radius:18px;
 padding:15px;
@@ -129,18 +129,18 @@ box-shadow:0 15px 35px rgba(0,0,0,.6);
 }
 
 .temp{
-font-size:40px;
+font-size:42px;
 }
 
 /* CARRUSEL */
 
 .carrusel{
-width:60%;
-height:240px;
+width:65%;
+height:32vh;
+min-height:260px;
 border-radius:20px;
 overflow:hidden;
 position:relative;
-margin-top:15px;
 box-shadow:0 20px 40px rgba(0,0,0,.7);
 }
 
@@ -165,12 +165,12 @@ opacity:1;
 /* FRASE */
 
 .versiculo{
-margin-top:10px;
 background:rgba(0,0,0,.5);
 padding:10px;
 border-radius:15px;
 width:60%;
 text-align:center;
+font-size:18px;
 }
 
 /* VIDEO */
@@ -363,13 +363,11 @@ const carrusel=document.getElementById("carrusel")
 imagenes.forEach((img,i)=>{
 
 let div=document.createElement("div")
-
 div.classList.add("slide")
 
 if(i==0) div.classList.add("activo")
 
 div.innerHTML=`<img src="${img}">`
-
 carrusel.appendChild(div)
 
 })
@@ -382,7 +380,6 @@ let actual=document.querySelector(".activo")
 let i=[...slides].indexOf(actual)
 
 actual.classList.remove("activo")
-
 slides[(i+1)%slides.length].classList.add("activo")
 
 },5000)
@@ -400,7 +397,6 @@ let lluvia=data.hourly.precipitation_probability
 let horas=data.hourly.time
 
 let ahora=new Date()
-
 let proxima=null
 
 for(let i=0;i<lluvia.length;i++){
@@ -410,10 +406,8 @@ if(lluvia[i]>60){
 let hora=new Date(horas[i])
 
 if(hora>ahora){
-
 proxima=hora.getHours()+":00"
 break
-
 }
 
 }
@@ -428,20 +422,16 @@ document.getElementById("desc").innerText=
 /* FRASES */
 
 const versiculos=[
-
 "Todo lo puedo en aquel que me fortalece — Filipenses 4:13",
 "El Señor es mi pastor nada me faltará — Salmos 23:1",
 "Dios es nuestro refugio y fortaleza — Salmos 46:1",
 "Busquen primero el reino de Dios — Mateo 6:33",
 "La paz os dejo mi paz os doy — Juan 14:27",
 "Confía en el Señor con todo tu corazón — Proverbios 3:5"
-
 ]
 
 let indice=Math.floor(Math.random()*versiculos.length)
-
-document.getElementById("versiculo").innerText=
-versiculos[indice]
+document.getElementById("versiculo").innerText=versiculos[indice]
 
 /* VIDEO */
 
@@ -459,11 +449,9 @@ videoDiv.classList.remove("activo")
 }
 
 setInterval(()=>{
-
 if(video.paused){
 mostrarVideo()
 }
-
 },300000)
 
 /* PARTICULAS */
